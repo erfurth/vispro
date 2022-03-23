@@ -1,5 +1,5 @@
 werkzeug="Beide"
-letzteSchicht=true;
+letzteSchicht=false;
 
 tabellenname= ["ultrasonic3","ultrasonic3","ultrasonic3","ultrasonic4","ultrasonic4","ultrasonic4"];
 %messwert = "vaLoadX";

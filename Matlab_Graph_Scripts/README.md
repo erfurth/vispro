@@ -10,13 +10,22 @@ Das geschieht über die Zeile
 ```
 
 ## single tool
-[Bild]
+![Bild](/../Pictures/single_tool.png)
 Mit dem "Single Tool" Script werden Graphen für ein einzelnes Werkzeug (D126 oder D64) erstellt.
 
 ## both tools
-[Bild]
+![Bild](/../Pictures/both_tools.png)
 Das Script im "Both Tools" erstellt Graphen für beide Werkzeuge, die per Farbe zu unterscheiden sind.
 
 ## single layers
-[Bild]
+![Bild](/../Pictures/single_layers.png)
 Im "Single Layers" Script werden Graphen erstellt, die die Werte für jede abgeschliffene Schicht einzeln darstellt.
+
+## multi dimension plot
+![Bild](/../Pictures/multi_dimension_plot.png)
+Im "Multi Dimension Plot" werden viele Messwerte auf einen 2D-Plot dargestellt
+
+## prediction
+![Bild](/../Pictures/predict.png)
+Das Prediction Script sind die ersten Gehversuche mit der KI von Matlab. Bei dem Versuch wurden 2/3 eines Datensatzes zum Trainieren verwendet und anschließend wird die Vorhersage mit dem letzten Drittel verglichen.
+

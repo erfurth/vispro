@@ -34,8 +34,16 @@ classdef printPlot_beide_versuche
             corr_kendall_min_vaLoad_x_Ra=corr(cat(1,valueX,valueXD64),cat(1,Ra,RaD64),'Type','Kendall');
             corr_spearman_min_vaLoad_x_Ra=corr(cat(1,valueX,valueXD64),cat(1,Ra,RaD64),'Type','Spearman');
             
+            corr_pearson_min_vaLoad_x_Ra_D126=corr(valueX,Ra,'Type','Pearson');
+            corr_kendall_min_vaLoad_x_Ra_D126=corr(valueX,Ra,'Type','Kendall');
+            corr_spearman_min_vaLoad_x_Ra_D126=corr(valueX,Ra,'Type','Spearman');
             
-            title(append('x - Ra; corr = ',string(corr_pearson_min_vaLoad_x_Ra),', ',string(corr_kendall_min_vaLoad_x_Ra),', ',string(corr_spearman_min_vaLoad_x_Ra)));
+            corr_pearson_min_vaLoad_x_Ra_D64=corr(valueXD64,RaD64,'Type','Pearson');
+            corr_kendall_min_vaLoad_x_Ra_D64=corr(valueXD64,RaD64,'Type','Kendall');
+            corr_spearman_min_vaLoad_x_Ra_D64=corr(valueXD64,RaD64,'Type','Spearman');
+            
+            
+            title([append('x - Ra; corr P= ',string(corr_pearson_min_vaLoad_x_Ra),', K= ',string(corr_kendall_min_vaLoad_x_Ra),', S= ',string(corr_spearman_min_vaLoad_x_Ra)),append('\color{red}corr P= ',string(corr_pearson_min_vaLoad_x_Ra_D126),', K= ',string(corr_kendall_min_vaLoad_x_Ra_D126),', S= ',string(corr_spearman_min_vaLoad_x_Ra_D126)),append('\color{blue}corr P= ',string(corr_pearson_min_vaLoad_x_Ra_D64),', K= ',string(corr_kendall_min_vaLoad_x_Ra_D64),', S= ',string(corr_spearman_min_vaLoad_x_Ra_D64))]);
             scatter(valueXD64,RaD64,'b');
             text(valueXD64,RaD64+labelOffset,label,'HorizontalAlignment','center','VerticalAlignment','bottom');
             xlabel(achsbeschreibungX);
@@ -46,10 +54,20 @@ classdef printPlot_beide_versuche
             scatter(valueY,Ra,'r');
             text(valueY,Ra+labelOffset,label,'HorizontalAlignment','center','VerticalAlignment','bottom');
             hold on
+            
             corr_pearson_min_vaLoad_y_Ra=corr(cat(1,valueY,valueYD64),cat(1,Ra,RaD64),'Type','Pearson');
             corr_kendall_min_vaLoad_y_Ra=corr(cat(1,valueY,valueYD64),cat(1,Ra,RaD64),'Type','Kendall');
             corr_spearman_min_vaLoad_y_Ra=corr(cat(1,valueY,valueYD64),cat(1,Ra,RaD64),'Type','Spearman');
-            title(append('y - Ra; corr = ',string(corr_pearson_min_vaLoad_y_Ra),', ',string(corr_kendall_min_vaLoad_y_Ra),', ',string(corr_spearman_min_vaLoad_y_Ra)));
+            
+            corr_pearson_min_vaLoad_y_Ra_D126=corr(valueY,Ra,'Type','Pearson');
+            corr_kendall_min_vaLoad_y_Ra_D126=corr(valueY,Ra,'Type','Kendall');
+            corr_spearman_min_vaLoad_y_Ra_D126=corr(valueY,Ra,'Type','Spearman');
+            
+            corr_pearson_min_vaLoad_y_Ra_D64=corr(valueYD64,RaD64,'Type','Pearson');
+            corr_kendall_min_vaLoad_y_Ra_D64=corr(valueYD64,RaD64,'Type','Kendall');
+            corr_spearman_min_vaLoad_y_Ra_D64=corr(valueYD64,RaD64,'Type','Spearman');
+            
+            title([append('y - Ra; corr P= ',string(corr_pearson_min_vaLoad_y_Ra),', K= ',string(corr_kendall_min_vaLoad_y_Ra),', S= ',string(corr_spearman_min_vaLoad_y_Ra)),append('\color{red}corr P= ',string(corr_pearson_min_vaLoad_y_Ra_D126),', K= ',string(corr_kendall_min_vaLoad_y_Ra_D126),', S= ',string(corr_spearman_min_vaLoad_y_Ra_D126)),append('\color{blue}corr P= ',string(corr_pearson_min_vaLoad_y_Ra_D64),', K= ',string(corr_kendall_min_vaLoad_y_Ra_D64),', S= ',string(corr_spearman_min_vaLoad_y_Ra_D64))]);            
             scatter(valueYD64,RaD64,'b');
             text(valueYD64,RaD64+labelOffset,label,'HorizontalAlignment','center','VerticalAlignment','bottom');
             xlabel(achsbeschreibungX);
@@ -64,7 +82,16 @@ classdef printPlot_beide_versuche
             corr_pearson_min_vaLoad_z_Ra=corr(cat(1,valueZ,valueZD64),cat(1,Ra,RaD64),'Type','Pearson');
             corr_kendall_min_vaLoad_z_Ra=corr(cat(1,valueZ,valueZD64),cat(1,Ra,RaD64),'Type','Kendall');
             corr_spearman_min_vaLoad_z_Ra=corr(cat(1,valueZ,valueZD64),cat(1,Ra,RaD64),'Type','Spearman');
-            title(append('z - Ra; corr = ',string(corr_pearson_min_vaLoad_z_Ra),', ',string(corr_kendall_min_vaLoad_z_Ra),', ',string(corr_spearman_min_vaLoad_z_Ra)));
+            
+            corr_pearson_min_vaLoad_z_Ra_D126=corr(valueZ,Ra,'Type','Pearson');
+            corr_kendall_min_vaLoad_z_Ra_D126=corr(valueZ,Ra,'Type','Kendall');
+            corr_spearman_min_vaLoad_z_Ra_D126=corr(valueZ,Ra,'Type','Spearman');
+            
+            corr_pearson_min_vaLoad_z_Ra_D64=corr(valueZD64,RaD64,'Type','Pearson');
+            corr_kendall_min_vaLoad_z_Ra_D64=corr(valueZD64,RaD64,'Type','Kendall');
+            corr_spearman_min_vaLoad_z_Ra_D64=corr(valueZD64,RaD64,'Type','Spearman');
+            
+            title([append('z - Ra; corr P= ',string(corr_pearson_min_vaLoad_z_Ra),', K= ',string(corr_kendall_min_vaLoad_z_Ra),', S= ',string(corr_spearman_min_vaLoad_z_Ra)),append('\color{red}corr P= ',string(corr_pearson_min_vaLoad_z_Ra_D126),', K= ',string(corr_kendall_min_vaLoad_z_Ra_D126),', S= ',string(corr_spearman_min_vaLoad_z_Ra_D126)),append('\color{blue}corr P= ',string(corr_pearson_min_vaLoad_z_Ra_D64),', K= ',string(corr_kendall_min_vaLoad_z_Ra_D64),', S= ',string(corr_spearman_min_vaLoad_z_Ra_D64))]);            
             scatter(valueZD64,RaD64,'b');
             text(valueZD64,RaD64+labelOffset,label,'HorizontalAlignment','center','VerticalAlignment','bottom');
             xlabel(achsbeschreibungX);
@@ -79,7 +106,16 @@ classdef printPlot_beide_versuche
             corr_pearson_min_vaLoad_x_Rq=corr(cat(1,valueX,valueXD64),cat(1,Rq,RqD64),'Type','Pearson');
             corr_kendall_min_vaLoad_x_Rq=corr(cat(1,valueX,valueXD64),cat(1,Rq,RqD64),'Type','Kendall');
             corr_spearman_min_vaLoad_x_Rq=corr(cat(1,valueX,valueXD64),cat(1,Rq,RqD64),'Type','Spearman');
-            title(append('x - Rq; corr = ',string(corr_pearson_min_vaLoad_x_Rq),', ',string(corr_kendall_min_vaLoad_x_Rq),', ',string(corr_spearman_min_vaLoad_x_Rq)));
+            
+            corr_pearson_min_vaLoad_x_Rq_D126=corr(valueX,Rq,'Type','Pearson');
+            corr_kendall_min_vaLoad_x_Rq_D126=corr(valueX,Rq,'Type','Kendall');
+            corr_spearman_min_vaLoad_x_Rq_D126=corr(valueX,Rq,'Type','Spearman');
+            
+            corr_pearson_min_vaLoad_x_Rq_D64=corr(valueXD64,RqD64,'Type','Pearson');
+            corr_kendall_min_vaLoad_x_Rq_D64=corr(valueXD64,RqD64,'Type','Kendall');
+            corr_spearman_min_vaLoad_x_Rq_D64=corr(valueXD64,RqD64,'Type','Spearman');
+            
+            title([append('x - Rq; corr P= ',string(corr_pearson_min_vaLoad_x_Rq),', K= ',string(corr_kendall_min_vaLoad_x_Rq),', S= ',string(corr_spearman_min_vaLoad_x_Rq)),append('\color{red}corr P= ',string(corr_pearson_min_vaLoad_x_Rq_D126),', K= ',string(corr_kendall_min_vaLoad_x_Rq_D126),', S= ',string(corr_spearman_min_vaLoad_x_Rq_D126)),append('\color{blue}corr P= ',string(corr_pearson_min_vaLoad_x_Rq_D64),', K= ',string(corr_kendall_min_vaLoad_x_Rq_D64),', S= ',string(corr_spearman_min_vaLoad_x_Rq_D64))]);
             scatter(valueXD64,RqD64,'b');
             text(valueXD64,RqD64+labelOffset,label,'HorizontalAlignment','center','VerticalAlignment','bottom');
             xlabel(achsbeschreibungX);
@@ -94,7 +130,16 @@ classdef printPlot_beide_versuche
             corr_pearson_min_vaLoad_y_Rq=corr(cat(1,valueY,valueYD64),cat(1,Rq,RqD64),'Type','Pearson');
             corr_kendall_min_vaLoad_y_Rq=corr(cat(1,valueY,valueYD64),cat(1,Rq,RqD64),'Type','Kendall');
             corr_spearman_min_vaLoad_y_Rq=corr(cat(1,valueY,valueYD64),cat(1,Rq,RqD64),'Type','Spearman');
-            title(append('y - Rq; corr = ',string(corr_pearson_min_vaLoad_y_Rq),', ',string(corr_kendall_min_vaLoad_y_Rq),', ',string(corr_spearman_min_vaLoad_y_Rq)));
+            
+            corr_pearson_min_vaLoad_y_Rq_D126=corr(valueY,Rq,'Type','Pearson');
+            corr_kendall_min_vaLoad_y_Rq_D126=corr(valueY,Rq,'Type','Kendall');
+            corr_spearman_min_vaLoad_y_Rq_D126=corr(valueY,Rq,'Type','Spearman');
+            
+            corr_pearson_min_vaLoad_y_Rq_D64=corr(valueYD64,RqD64,'Type','Pearson');
+            corr_kendall_min_vaLoad_y_Rq_D64=corr(valueYD64,RqD64,'Type','Kendall');
+            corr_spearman_min_vaLoad_y_Rq_D64=corr(valueYD64,RqD64,'Type','Spearman');
+            
+            title([append('y - Rq; corr P= ',string(corr_pearson_min_vaLoad_y_Rq),', K= ',string(corr_kendall_min_vaLoad_y_Rq),', S= ',string(corr_spearman_min_vaLoad_y_Rq)),append('\color{red}corr P= ',string(corr_pearson_min_vaLoad_y_Rq_D126),', K= ',string(corr_kendall_min_vaLoad_y_Rq_D126),', S= ',string(corr_spearman_min_vaLoad_y_Rq_D126)),append('\color{blue}corr P= ',string(corr_pearson_min_vaLoad_y_Rq_D64),', K= ',string(corr_kendall_min_vaLoad_y_Rq_D64),', S= ',string(corr_spearman_min_vaLoad_y_Rq_D64))]);            
             scatter(valueYD64,RqD64,'b');
             text(valueYD64,RqD64+labelOffset,label,'HorizontalAlignment','center','VerticalAlignment','bottom');
             xlabel(achsbeschreibungX);
@@ -109,7 +154,16 @@ classdef printPlot_beide_versuche
             corr_pearson_min_vaLoad_z_Rq=corr(cat(1,valueZ,valueZD64),cat(1,Rq,RqD64),'Type','Pearson');
             corr_kendall_min_vaLoad_z_Rq=corr(cat(1,valueZ,valueZD64),cat(1,Rq,RqD64),'Type','Kendall');
             corr_spearman_min_vaLoad_z_Rq=corr(cat(1,valueZ,valueZD64),cat(1,Rq,RqD64),'Type','Spearman');
-            title(append('z - Rq; corr = ',string(corr_pearson_min_vaLoad_z_Rq),', ',string(corr_kendall_min_vaLoad_z_Rq),', ',string(corr_spearman_min_vaLoad_z_Rq)));
+            
+            corr_pearson_min_vaLoad_z_Rq_D126=corr(valueZ,Rq,'Type','Pearson');
+            corr_kendall_min_vaLoad_z_Rq_D126=corr(valueZ,Rq,'Type','Kendall');
+            corr_spearman_min_vaLoad_z_Rq_D126=corr(valueZ,Rq,'Type','Spearman');
+            
+            corr_pearson_min_vaLoad_z_Rq_D64=corr(valueZD64,RqD64,'Type','Pearson');
+            corr_kendall_min_vaLoad_z_Rq_D64=corr(valueZD64,RqD64,'Type','Kendall');
+            corr_spearman_min_vaLoad_z_Rq_D64=corr(valueZD64,RqD64,'Type','Spearman');
+            
+            title([append('z - Rq; corr P= ',string(corr_pearson_min_vaLoad_z_Rq),', K= ',string(corr_kendall_min_vaLoad_z_Rq),', S= ',string(corr_spearman_min_vaLoad_z_Rq)),append('\color{red}corr P= ',string(corr_pearson_min_vaLoad_z_Rq_D126),', K= ',string(corr_kendall_min_vaLoad_z_Rq_D126),', S= ',string(corr_spearman_min_vaLoad_z_Rq_D126)),append('\color{blue}corr P= ',string(corr_pearson_min_vaLoad_z_Rq_D64),', K= ',string(corr_kendall_min_vaLoad_z_Rq_D64),', S= ',string(corr_spearman_min_vaLoad_z_Rq_D64))]);            
             scatter(valueZD64,RqD64,'b');
             text(valueZD64,RqD64+labelOffset,label,'HorizontalAlignment','center','VerticalAlignment','bottom');
             xlabel(achsbeschreibungX);
@@ -121,10 +175,20 @@ classdef printPlot_beide_versuche
 
             text(valueX,Rz+labelOffset,label,'HorizontalAlignment','center','VerticalAlignment','bottom');
             hold on
+            
             corr_pearson_min_vaLoad_x_Rz=corr(cat(1,valueX,valueXD64),cat(1,Rz,RzD64),'Type','Pearson');
             corr_kendall_min_vaLoad_x_Rz=corr(cat(1,valueX,valueXD64),cat(1,Rz,RzD64),'Type','Kendall');
             corr_spearman_min_vaLoad_x_Rz=corr(cat(1,valueX,valueXD64),cat(1,Rz,RzD64),'Type','Spearman');
-            title(append('x - Rz; corr = ',string(corr_pearson_min_vaLoad_x_Rz),', ',string(corr_kendall_min_vaLoad_x_Rz),', ',string(corr_spearman_min_vaLoad_x_Rz)));
+            
+            corr_pearson_min_vaLoad_x_Rz_D126=corr(valueX,Rz,'Type','Pearson');
+            corr_kendall_min_vaLoad_x_Rz_D126=corr(valueX,Rz,'Type','Kendall');
+            corr_spearman_min_vaLoad_x_Rz_D126=corr(valueX,Rz,'Type','Spearman');
+            
+            corr_pearson_min_vaLoad_x_Rz_D64=corr(valueXD64,RzD64,'Type','Pearson');
+            corr_kendall_min_vaLoad_x_Rz_D64=corr(valueXD64,RzD64,'Type','Kendall');
+            corr_spearman_min_vaLoad_x_Rz_D64=corr(valueXD64,RzD64,'Type','Spearman');
+            
+            title([append('x - Rz; corr P= ',string(corr_pearson_min_vaLoad_x_Rz),', K= ',string(corr_kendall_min_vaLoad_x_Rz),', S= ',string(corr_spearman_min_vaLoad_x_Rz)),append('\color{red}corr P= ',string(corr_pearson_min_vaLoad_x_Rz_D126),', K= ',string(corr_kendall_min_vaLoad_x_Rz_D126),', S= ',string(corr_spearman_min_vaLoad_x_Rz_D126)),append('\color{blue}corr P= ',string(corr_pearson_min_vaLoad_x_Rz_D64),', K= ',string(corr_kendall_min_vaLoad_x_Rz_D64),', S= ',string(corr_spearman_min_vaLoad_x_Rz_D64))]);
             scatter(valueXD64,RzD64,'b');
             text(valueXD64,RzD64+labelOffset,label,'HorizontalAlignment','center','VerticalAlignment','bottom');
             xlabel(achsbeschreibungX);
@@ -139,7 +203,16 @@ classdef printPlot_beide_versuche
             corr_pearson_min_vaLoad_y_Rz=corr(cat(1,valueY,valueYD64),cat(1,Rz,RzD64),'Type','Pearson');
             corr_kendall_min_vaLoad_y_Rz=corr(cat(1,valueY,valueYD64),cat(1,Rz,RzD64),'Type','Kendall');
             corr_spearman_min_vaLoad_y_Rz=corr(cat(1,valueY,valueYD64),cat(1,Rz,RzD64),'Type','Spearman');
-            title(append('y - Rz; corr = ',string(corr_pearson_min_vaLoad_y_Rz),', ',string(corr_kendall_min_vaLoad_y_Rz),', ',string(corr_spearman_min_vaLoad_y_Rz)));
+            
+            corr_pearson_min_vaLoad_y_Rz_D126=corr(valueY,Rz,'Type','Pearson');
+            corr_kendall_min_vaLoad_y_Rz_D126=corr(valueY,Rz,'Type','Kendall');
+            corr_spearman_min_vaLoad_y_Rz_D126=corr(valueY,Rz,'Type','Spearman');
+            
+            corr_pearson_min_vaLoad_y_Rz_D64=corr(valueYD64,RzD64,'Type','Pearson');
+            corr_kendall_min_vaLoad_y_Rz_D64=corr(valueYD64,RzD64,'Type','Kendall');
+            corr_spearman_min_vaLoad_y_Rz_D64=corr(valueYD64,RzD64,'Type','Spearman');
+            
+            title([append('y - Rz; corr P= ',string(corr_pearson_min_vaLoad_y_Rz),', K= ',string(corr_kendall_min_vaLoad_y_Rz),', S= ',string(corr_spearman_min_vaLoad_y_Rz)),append('\color{red}corr P= ',string(corr_pearson_min_vaLoad_y_Rz_D126),', K= ',string(corr_kendall_min_vaLoad_y_Rz_D126),', S= ',string(corr_spearman_min_vaLoad_y_Rz_D126)),append('\color{blue}corr P= ',string(corr_pearson_min_vaLoad_y_Rz_D64),', K= ',string(corr_kendall_min_vaLoad_y_Rz_D64),', S= ',string(corr_spearman_min_vaLoad_y_Rz_D64))]);            
             scatter(valueYD64,RzD64,'b');
             text(valueYD64,RzD64+labelOffset,label,'HorizontalAlignment','center','VerticalAlignment','bottom');
             xlabel(achsbeschreibungX);
@@ -154,7 +227,16 @@ classdef printPlot_beide_versuche
             corr_pearson_min_vaLoad_z_Rz=corr(cat(1,valueZ,valueZD64),cat(1,Rz,RzD64),'Type','Pearson');
             corr_kendall_min_vaLoad_z_Rz=corr(cat(1,valueZ,valueZD64),cat(1,Rz,RzD64),'Type','Kendall');
             corr_spearman_min_vaLoad_z_Rz=corr(cat(1,valueZ,valueZD64),cat(1,Rz,RzD64),'Type','Spearman');
-            title(append('z - Rz; corr = ',string(corr_pearson_min_vaLoad_z_Rz),', ',string(corr_kendall_min_vaLoad_z_Rz),', ',string(corr_spearman_min_vaLoad_z_Rz)));
+            
+            corr_pearson_min_vaLoad_z_Rz_D126=corr(valueZ,Rz,'Type','Pearson');
+            corr_kendall_min_vaLoad_z_Rz_D126=corr(valueZ,Rz,'Type','Kendall');
+            corr_spearman_min_vaLoad_z_Rz_D126=corr(valueZ,Rz,'Type','Spearman');
+            
+            corr_pearson_min_vaLoad_z_Rz_D64=corr(valueZD64,RzD64,'Type','Pearson');
+            corr_kendall_min_vaLoad_z_Rz_D64=corr(valueZD64,RzD64,'Type','Kendall');
+            corr_spearman_min_vaLoad_z_Rz_D64=corr(valueZD64,RzD64,'Type','Spearman');
+            
+            title([append('z - Rq; corr P= ',string(corr_pearson_min_vaLoad_z_Rz),', K= ',string(corr_kendall_min_vaLoad_z_Rz),', S= ',string(corr_spearman_min_vaLoad_z_Rz)),append('\color{red}corr P= ',string(corr_pearson_min_vaLoad_z_Rz_D126),', K= ',string(corr_kendall_min_vaLoad_z_Rz_D126),', S= ',string(corr_spearman_min_vaLoad_z_Rz_D126)),append('\color{blue}corr P= ',string(corr_pearson_min_vaLoad_z_Rz_D64),', K= ',string(corr_kendall_min_vaLoad_z_Rz_D64),', S= ',string(corr_spearman_min_vaLoad_z_Rz_D64))]);            
             scatter(valueZD64,RzD64,'b');
             text(valueZD64,RzD64+labelOffset,label,'HorizontalAlignment','center','VerticalAlignment','bottom');
             xlabel(achsbeschreibungX);
@@ -169,7 +251,16 @@ classdef printPlot_beide_versuche
             corr_pearson_min_vaLoad_x_Wt=corr(cat(1,valueX,valueXD64),cat(1,Wt,WtD64),'Type','Pearson');
             corr_kendall_min_vaLoad_x_Wt=corr(cat(1,valueX,valueXD64),cat(1,Wt,WtD64),'Type','Kendall');
             corr_spearman_min_vaLoad_x_Wt=corr(cat(1,valueX,valueXD64),cat(1,Wt,WtD64),'Type','Spearman');
-            title(append('x - Wt; corr = ',string(corr_pearson_min_vaLoad_x_Wt),', ',string(corr_kendall_min_vaLoad_x_Wt),', ',string(corr_spearman_min_vaLoad_x_Wt)));
+            
+            corr_pearson_min_vaLoad_x_Wt_D126=corr(valueX,Wt,'Type','Pearson');
+            corr_kendall_min_vaLoad_x_Wt_D126=corr(valueX,Wt,'Type','Kendall');
+            corr_spearman_min_vaLoad_x_Wt_D126=corr(valueX,Wt,'Type','Spearman');
+            
+            corr_pearson_min_vaLoad_x_Wt_D64=corr(valueXD64,WtD64,'Type','Pearson');
+            corr_kendall_min_vaLoad_x_Wt_D64=corr(valueXD64,WtD64,'Type','Kendall');
+            corr_spearman_min_vaLoad_x_Wt_D64=corr(valueXD64,WtD64,'Type','Spearman');
+            
+            title([append('x - Wt; corr P= ',string(corr_pearson_min_vaLoad_x_Wt),', K= ',string(corr_kendall_min_vaLoad_x_Wt),', S= ',string(corr_spearman_min_vaLoad_x_Wt)),append('\color{red}corr P= ',string(corr_pearson_min_vaLoad_x_Wt_D126),', K= ',string(corr_kendall_min_vaLoad_x_Wt_D126),', S= ',string(corr_spearman_min_vaLoad_x_Wt_D126)),append('\color{blue}corr P= ',string(corr_pearson_min_vaLoad_x_Wt_D64),', K= ',string(corr_kendall_min_vaLoad_x_Wt_D64),', S= ',string(corr_spearman_min_vaLoad_x_Wt_D64))]);
             scatter(valueXD64,WtD64,'b');
             text(valueXD64,WtD64+labelOffset,label,'HorizontalAlignment','center','VerticalAlignment','bottom');
             xlabel(achsbeschreibungX);
@@ -184,7 +275,16 @@ classdef printPlot_beide_versuche
             corr_pearson_min_vaLoad_y_Wt=corr(cat(1,valueY,valueYD64),cat(1,Wt,WtD64),'Type','Pearson');
             corr_kendall_min_vaLoad_y_Wt=corr(cat(1,valueY,valueYD64),cat(1,Wt,WtD64),'Type','Kendall');
             corr_spearman_min_vaLoad_y_Wt=corr(cat(1,valueY,valueYD64),cat(1,Wt,WtD64),'Type','Spearman');
-            title(append('y - Wt; corr = ',string(corr_pearson_min_vaLoad_y_Wt),', ',string(corr_kendall_min_vaLoad_y_Wt),', ',string(corr_spearman_min_vaLoad_y_Wt)));
+            
+            corr_pearson_min_vaLoad_y_Wt_D126=corr(valueY,Wt,'Type','Pearson');
+            corr_kendall_min_vaLoad_y_Wt_D126=corr(valueY,Wt,'Type','Kendall');
+            corr_spearman_min_vaLoad_y_Wt_D126=corr(valueY,Wt,'Type','Spearman');
+            
+            corr_pearson_min_vaLoad_y_Wt_D64=corr(valueYD64,WtD64,'Type','Pearson');
+            corr_kendall_min_vaLoad_y_Wt_D64=corr(valueYD64,WtD64,'Type','Kendall');
+            corr_spearman_min_vaLoad_y_Wt_D64=corr(valueYD64,WtD64,'Type','Spearman');
+            
+            title([append('y - Wt; corr P= ',string(corr_pearson_min_vaLoad_y_Wt),', K= ',string(corr_kendall_min_vaLoad_y_Wt),', S= ',string(corr_spearman_min_vaLoad_y_Wt)),append('\color{red}corr P= ',string(corr_pearson_min_vaLoad_y_Wt_D126),', K= ',string(corr_kendall_min_vaLoad_y_Wt_D126),', S= ',string(corr_spearman_min_vaLoad_y_Wt_D126)),append('\color{blue}corr P= ',string(corr_pearson_min_vaLoad_y_Wt_D64),', K= ',string(corr_kendall_min_vaLoad_y_Wt_D64),', S= ',string(corr_spearman_min_vaLoad_y_Wt_D64))]);            
             scatter(valueYD64,WtD64,'b');
             text(valueYD64,WtD64+labelOffset,label,'HorizontalAlignment','center','VerticalAlignment','bottom');
             xlabel(achsbeschreibungX);
@@ -199,15 +299,26 @@ classdef printPlot_beide_versuche
             corr_pearson_min_vaLoad_z_Wt=corr(cat(1,valueZ,valueZD64),cat(1,Wt,WtD64),'Type','Pearson');
             corr_kendall_min_vaLoad_z_Wt=corr(cat(1,valueZ,valueZD64),cat(1,Wt,WtD64),'Type','Kendall');
             corr_spearman_min_vaLoad_z_Wt=corr(cat(1,valueZ,valueZD64),cat(1,Wt,WtD64),'Type','Spearman');
-            title(append('z - Wt; corr = ',string(corr_pearson_min_vaLoad_z_Wt),', ',string(corr_kendall_min_vaLoad_z_Wt),', ',string(corr_spearman_min_vaLoad_z_Wt)));
+            
+            corr_pearson_min_vaLoad_z_Wt_D126=corr(valueZ,Wt,'Type','Pearson');
+            corr_kendall_min_vaLoad_z_Wt_D126=corr(valueZ,Wt,'Type','Kendall');
+            corr_spearman_min_vaLoad_z_Wt_D126=corr(valueZ,Wt,'Type','Spearman');
+            
+            corr_pearson_min_vaLoad_z_Wt_D64=corr(valueZD64,WtD64,'Type','Pearson');
+            corr_kendall_min_vaLoad_z_Wt_D64=corr(valueZD64,WtD64,'Type','Kendall');
+            corr_spearman_min_vaLoad_z_Wt_D64=corr(valueZD64,WtD64,'Type','Spearman');
+            
+            title([append('z - Wt; corr P= ',string(corr_pearson_min_vaLoad_z_Wt),', K= ',string(corr_kendall_min_vaLoad_z_Wt),', S= ',string(corr_spearman_min_vaLoad_z_Wt)),append('\color{red}corr P= ',string(corr_pearson_min_vaLoad_z_Wt_D126),', K= ',string(corr_kendall_min_vaLoad_z_Wt_D126),', S= ',string(corr_spearman_min_vaLoad_z_Wt_D126)),append('\color{blue}corr P= ',string(corr_pearson_min_vaLoad_z_Wt_D64),', K= ',string(corr_kendall_min_vaLoad_z_Wt_D64),', S= ',string(corr_spearman_min_vaLoad_z_Wt_D64))]);            
             scatter(valueZD64,WtD64,'b');
             text(valueZD64,WtD64+labelOffset,label,'HorizontalAlignment','center','VerticalAlignment','bottom');
             xlabel(achsbeschreibungX);
             ylabel(achsbeschreibungY);
             hold off;
             set(gcf, 'PaperPosition', [0 0 40 30]); %x_width=10cm y_width=15cm
-            saveas(testlayout,append("letzteSchicht/",werkzeug,"/",saveName,".fig"));
-            saveas(testlayout,append("letzteSchicht/",werkzeug,"/",saveName,".png"));
+%             saveas(testlayout,append("letzteSchicht/",werkzeug,"/",saveName,".fig"));
+%             saveas(testlayout,append("letzteSchicht/",werkzeug,"/",saveName,".png"));
+            saveas(testlayout,append("alleSchichten/",werkzeug,"/",saveName,".fig"));
+            saveas(testlayout,append("alleSchichten/",werkzeug,"/",saveName,".png"));
 %             saveas(testlayout,append("letzteSchicht/nurX/",werkzeug,"/",saveName,".fig"));
 %             saveas(testlayout,append("letzteSchicht/nurX/",werkzeug,"/",saveName,".png"));
 %             saveas(testlayout,append("alleSchichten/nurY/",werkzeug,"/",saveName,".fig"));
