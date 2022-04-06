@@ -1,9 +1,9 @@
 # both tools
-![Bild](../Pictures/both_tools.png)
+![Bild](../../Pictures/both_tools.png)
 Das Script im "Both Tools" erstellt Graphen für beide Werkzeuge, die per Farbe zu unterscheiden sind.
 
 ## config
-![Bild](../Pictures/both_tools_config.png)
+![Bild](../../Pictures/both_tools_config.png)
 Vor dem Ausführen des Scripts müssen die Parameter der Datenbank eingetragen werden.
 
 ## Rauheitswerte
