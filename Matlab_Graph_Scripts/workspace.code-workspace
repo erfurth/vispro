@@ -1,0 +1,12 @@
+{
+	"folders": [
+		{
+			"path": "..\\..\\..\\..\\PlatformIO\\Projects\\Gamepad-Emulator"
+		},
+		{
+			"name": "ESP32-Gamepad",
+			"path": "..\\..\\..\\..\\PlatformIO\\Projects\\ESP32-Gamepad"
+		}
+	],
+	"settings": {}
+}
