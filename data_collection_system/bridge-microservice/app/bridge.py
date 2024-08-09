@@ -41,7 +41,6 @@ mqtt_client = None
 ### --------------- Startup/Shutdown logic ---------------- ###
 ###############################################################
 
-
 # handling the startup/shutdown of the server
 @asynccontextmanager
 async def lifespan(app: FastAPI):

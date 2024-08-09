@@ -1,0 +1,39 @@
+services:
+  test_bridge:
+    build: ./bridge-microservice
+    ports:
+      - "8000:80"
+    environment:
+      - PYTHONUNBUFFERED=1
+    volumes:
+      - ./bridge-microservice/service.json:/bridge-microservice/app/conf/service.json
+
+  mosquitto:
+    image: eclipse-mosquitto:2.0.18
+    volumes:
+      - ./mosquitto/mosquitto.conf:/mosquitto/config/mosquitto.conf
+
+  telegraf:
+    image: telegraf:1.31.2-alpine
+    env_file:
+      - ./telegraf/cred.env
+      - ./telegraf/conf.env
+    volumes:
+      - ./telegraf/telegraf.conf:/etc/telegraf/telegraf.conf
+    restart: always
+
+  influxdb:
+    image: influxdb:2.7-alpine
+    ports:
+      - "8086:8086"
+    env_file:
+      - ./influxdb/cred.env
+      - ./influxdb/conf.env
+    volumes:
+      - influxdb_data:/var/lib/influxdb2
+      - influxdb_config:/etc/influxdb2
+    restart: always
+
+volumes:
+  influxdb_data:
+  influxdb_config:
