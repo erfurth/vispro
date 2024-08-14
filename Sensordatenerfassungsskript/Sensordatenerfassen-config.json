@@ -1,0 +1,16 @@
+{
+    "mqtt": {
+        "broker": "192.168.2.156",  // IP address of the MQTT broker to connect to
+        "port": 1883,  // Port number of the MQTT broker (default 1883 for unencrypted MQTT)
+        "topic": "sensordaten",  // The MQTT topic where sensor data will be published
+        "client_id": "data_publisher"  // Client ID used by the MQTT client to identify itself to the broker
+    },
+    "intervals": {
+        "mqtt_publish_interval": 5,  // Time interval in seconds between publishing sensor data to MQTT
+        "sleep_interval": 1  // Time interval in seconds between sensor readings
+    },
+    "sensors": {
+        "dht22_pin": "D4",  // Pin on the board that is connected to the DHT22 temperature and humidity sensor
+        "ds1820_base_dir": "/sys/bus/w1/devices/"  // Base directory where the 1-Wire DS1820 sensors are located
+    }
+}
