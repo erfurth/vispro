@@ -1,6 +1,8 @@
 import asyncio
 import json
 
+from dotenv import load_dotenv
+
 import app.transport.opcua as opcua
 import app.transport.mqtt as mqtt
 import app.namespace as nspace
@@ -41,11 +43,15 @@ mqtt_client = None
 ### --------------- Startup/Shutdown logic ---------------- ###
 ###############################################################
 
+
 # handling the startup/shutdown of the server
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     global opcua_client
     global mqtt_client
+
+    # load environment variables from .env file
+    load_dotenv()
 
     # variable for checking, if connection to opcua-server is established
     opcua_connected = False

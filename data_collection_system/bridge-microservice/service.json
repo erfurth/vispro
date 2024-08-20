@@ -1,17 +1,17 @@
 {
     "service": {
-        "name": "opcua-test",
+        "name": "opcua-mcp150",
         "protocols": {
             "input": "opcua",
             "output": "mqtt"
         }
     },
     "data_source": {
-        "name": "testserver_2",
-        "organisation": "private",
+        "name": "mcp150",
+        "oranisation": "private",
         "connection": {
-            "host": "host.docker.internal",
-            "port": 48020,
+            "host": "10.130.2.195",
+            "port": 4840,
             "security": {
                 "policy": "Basic256Sha256",
                 "mode": "SignAndEncrypt"
@@ -21,7 +21,7 @@
     },
     "data_sink": {
         "name": "mqtt-broker",
-        "organisation": "unknown",
+        "organisation": "private",
         "connection": {
             "host": "mosquitto",
             "port": 1883,
@@ -30,20 +30,218 @@
     },
     "namespaces": [
         {
-            "name": "http://www.unifiedautomation.com/DemoServer/",
-            "index": 4,
+            "name": "SinumerikVarProvider",
+            "index": 2,
             "viewed_nodes": [
                 {
-                    "metric_name": "heater_status",
-                    "trivial_name": "Zustand des Heizers",
-                    "unit": "Enum[ok, not]",
-                    "node_id": "Demo.BoilerDemo.Boiler1.HeaterStatus"
+                    "metric_name": "temperature_polishing_agent_actual",
+                    "trivial_name": "Temperatur-Istwert Poliermittel",
+                    "unit": "Degrees Celsius",
+                    "node_id": "/Plc/DB119.DBD292:REAL"
                 },
                 {
-                    "metric_name": "boiler_temp",
-                    "trivial_name": "Temperatur im Boiler",
-                    "unit": "Celcius",
-                    "node_id": "Demo.BoilerDemo.Boiler1.TemperatureSensor.Temperature"
+                    "metric_name": "working_pressure_actual",
+                    "trivial_name": "Arbeitsdruck Istwert",
+                    "unit": "Bar",
+                    "node_id": "/Plc/DB119.DBD300:REAL"
+                },
+                {
+                    "metric_name": "working_pressure_setpoint",
+                    "trivial_name": "Arbeitsdruck Sollwert",
+                    "unit": "Bar",
+                    "node_id": "/Plc/DB119.DBD316:REAL"
+                },
+                {
+                    "metric_name": "spindle_1_speed_actual",
+                    "trivial_name": "Drehzahl Ist Spindel 1",
+                    "unit": "U/min",
+                    "node_id": "/Nck/Spindle/actSpeed[u1,4]"
+                },
+                {
+                    "metric_name": "spindle_1_speed_setpoint",
+                    "trivial_name": "Drehzahl Soll Spindel 1",
+                    "unit": "U/min",
+                    "node_id": "/Nck/Spindle/cmdSpeed[u1,4]"
+                },
+                {
+                    "metric_name": "spindle_2_speed_actual",
+                    "trivial_name": "Drehzahl Ist Spindel 2",
+                    "unit": "U/min",
+                    "node_id": "/Nck/Spindle/actSpeed[u1,5]"
+                },
+                {
+                    "metric_name": "spindle_2_speed_setpoint",
+                    "trivial_name": "Drehzahl Soll Spindel 2",
+                    "unit": "U/min",
+                    "node_id": "/Nck/Spindle/cmdSpeed[u1,5]"
+                },
+                {
+                    "metric_name": "spindle_1_utilization",
+                    "trivial_name": "Auslastung Spindel 1",
+                    "unit": "Percent",
+                    "node_id": "/Nck/Spindle/driveLoad[u1,4]"
+                },
+                {
+                    "metric_name": "spindle_2_utilization",
+                    "trivial_name": "Auslastung Spindel 2",
+                    "unit": "Percent",
+                    "node_id": "/Nck/Spindle/driveLoad[u1,5]"
+                },
+                {
+                    "metric_name": "cycle_time",
+                    "trivial_name": "Zykluszeit",
+                    "unit": "Seconds",
+                    "node_id": "/Channel/ChannelDiagnose/cycleTime"
+                },
+                {
+                    "metric_name": "remaining_time",
+                    "trivial_name": "Restlaufzeit",
+                    "unit": "Seconds",
+                    "node_id": "/Channel/Parameter/R[99]"
+                },
+                {
+                    "metric_name": "active_operating_mode",
+                    "trivial_name": "Aktive Betriebsart",
+                    "unit": "Enum[JOG, MDA, AUTO]",
+                    "node_id": "/Bag/State/opMode"
+                },
+                {
+                    "metric_name": "program_status",
+                    "trivial_name": "Programmstatus",
+                    "unit": "Enum[reset, stop, aktiv, waiting, interrupted]",
+                    "node_id": "/Channel/State/acProg"
+                },
+                {
+                    "metric_name": "error_pending",
+                    "trivial_name": "Fehler steht an",
+                    "unit": "Enum[0, 1]",
+                    "node_id": "/Plc/DB119.DBX206.1"
+                },
+                {
+                    "metric_name": "position_x_actual",
+                    "trivial_name": "Istposition X",
+                    "unit": "Milimeters",
+                    "node_id": "/Channel/GeometricAxis/actProgPos[u1,1]"
+                },
+                {
+                    "metric_name": "position_y_actual",
+                    "trivial_name": "Istposition Y",
+                    "unit": "Milimeters",
+                    "node_id": "/Channel/GeometricAxis/actProgPos[u1,2]"
+                },
+                {
+                    "metric_name": "position_z_actual",
+                    "trivial_name": "Istposition Z",
+                    "unit": "Milimeters",
+                    "node_id": "/Channel/GeometricAxis/actProgPos[u1,3]"
+                },
+                {
+                    "metric_name": "position_a_actual",
+                    "trivial_name": "Istposition A",
+                    "unit": "Degrees",
+                    "node_id": "/Channel/GeometricAxis/actProgPos[u1,9]"
+                },
+                {
+                    "metric_name": "position_b_actual",
+                    "trivial_name": "Istposition B",
+                    "unit": "Degrees",
+                    "node_id": "/Channel/GeometricAxis/actProgPos[u1,11]"
+                },
+                {
+                    "metric_name": "spindle_2_position_actual",
+                    "trivial_name": "Istposition Spindel 2",
+                    "unit": "Degrees",
+                    "node_id": "/Channel/MachineAxis/measPos2[u1,5]"
+                },
+                {
+                    "metric_name": "utilization_x",
+                    "trivial_name": "Auslastung X",
+                    "unit": "Percent",
+                    "node_id": "/Nck/Spindle/driveLoad[u1,1]"
+                },
+                {
+                    "metric_name": "utilization_y",
+                    "trivial_name": "Auslastung Y",
+                    "unit": "Percent",
+                    "node_id": "/Nck/Spindle/driveLoad[u1,2]"
+                },
+                {
+                    "metric_name": "utilization_z",
+                    "trivial_name": "Auslastung Z",
+                    "unit": "Percent",
+                    "node_id": "/Nck/Spindle/driveLoad[u1,3]"
+                },
+                {
+                    "metric_name": "utilization_a",
+                    "trivial_name": "Auslastung A",
+                    "unit": "Percent",
+                    "node_id": "/Nck/Spindle/driveLoad[u1,9]"
+                },
+                {
+                    "metric_name": "utilization_b",
+                    "trivial_name": "Auslastung B",
+                    "unit": "Percent",
+                    "node_id": "/Nck/Spindle/driveLoad[u1,11]"
+                },
+                {
+                    "metric_name": "current_x",
+                    "trivial_name": "Strom X",
+                    "unit": "Ampere",
+                    "node_id": "/Nck/MachineAxis/aaCurr[u1,1]"
+                },
+                {
+                    "metric_name": "current_y",
+                    "trivial_name": "Strom Y",
+                    "unit": "Ampere",
+                    "node_id": "/Nck/MachineAxis/aaCurr[u1,2]"
+                },
+                {
+                    "metric_name": "current_z",
+                    "trivial_name": "Strom Z",
+                    "unit": "Ampere",
+                    "node_id": "/Nck/MachineAxis/aaCurr[u1,3]"
+                },
+                {
+                    "metric_name": "spindle_1_current",
+                    "trivial_name": "Strom Spindel 1",
+                    "unit": "Ampere",
+                    "node_id": "/Nck/MachineAxis/aaCurr[u1,4]"
+                },
+                {
+                    "metric_name": "spindle_2_current",
+                    "trivial_name": "Strom Spindel 2",
+                    "unit": "Ampere",
+                    "node_id": "/Nck/MachineAxis/aaCurr[u1,5]"
+                },
+                {
+                    "metric_name": "current_a",
+                    "trivial_name": "Strom A",
+                    "unit": "Ampere",
+                    "node_id": "/Nck/MachineAxis/aaCurr[u1,9]"
+                },
+                {
+                    "metric_name": "current_b",
+                    "trivial_name": "Strom B",
+                    "unit": "Ampere",
+                    "node_id": "/Nck/MachineAxis/aaCurr[u1,11]"
+                },
+                {
+                    "metric_name": "feed_rate",
+                    "trivial_name": "Vorschub",
+                    "unit": "$ref:feed_unit",
+                    "node_id": "/Channel/State/actFeedRateIpo"
+                },
+                {
+                    "metric_name": "override",
+                    "trivial_name": "Override",
+                    "unit": "Percent",
+                    "node_id": "/Nck/MachineAxis/aaTotalOvr"
+                },
+                {
+                    "metric_name": "feed_unit",
+                    "trivial_name": "Einheit des Vorschub",
+                    "unit": "Enum[mm/min, mm/U]",
+                    "node_id": "/Channel/State/feedRateIpoUnit"
                 }
             ]
         }

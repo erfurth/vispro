@@ -1,0 +1,51 @@
+{
+    "service": {
+        "name": "opcua-test",
+        "protocols": {
+            "input": "opcua",
+            "output": "mqtt"
+        }
+    },
+    "data_source": {
+        "name": "testserver_2",
+        "organisation": "private",
+        "connection": {
+            "host": "192.168.240.1",
+            "port": 48020,
+            "security": {
+                "policy": "Basic256Sha256",
+                "mode": "SignAndEncrypt"
+            }
+        },
+        "reading_rate": 0.5
+    },
+    "data_sink": {
+        "name": "mqtt-broker",
+        "organisation": "unknown",
+        "connection": {
+            "host": "mosquitto",
+            "port": 1883,
+            "keepalive": 60
+        }
+    },
+    "namespaces": [
+        {
+            "name": "http://www.unifiedautomation.com/DemoServer/",
+            "index": 4,
+            "viewed_nodes": [
+                {
+                    "metric_name": "heater_status",
+                    "trivial_name": "Zustand des Heizers",
+                    "unit": "Enum[ok, not]",
+                    "node_id": "Demo.BoilerDemo.Boiler1.HeaterStatus"
+                },
+                {
+                    "metric_name": "boiler_temp",
+                    "trivial_name": "Temperatur im Boiler",
+                    "unit": "Celcius",
+                    "node_id": "Demo.BoilerDemo.Boiler1.TemperatureSensor.Temperature"
+                }
+            ]
+        }
+    ]
+}

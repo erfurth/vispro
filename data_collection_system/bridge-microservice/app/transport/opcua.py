@@ -1,3 +1,4 @@
+import os
 import json
 
 from asyncua import Client
@@ -14,6 +15,12 @@ async def create_opcua_client() -> Client:
 
     # create a opcua client object for handle the connection
     opcua_client = Client(url=f"opc.tcp://{connection['host']}:{connection['port']}")
+
+    # set username for opcua server
+    opcua_client.set_user(os.environ.get("OCPUA_USER_NAME"))
+
+    # set the password for the opcua server
+    opcua_client.set_password(os.environ.get("OPCUA_PASSWORD"))
 
     # variable to save security policy
     policy = None
