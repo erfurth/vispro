@@ -24,6 +24,8 @@ from .models import (
     WriteNodeRequest,
 )
 
+from aiomqtt.exceptions import MqttCodeError
+
 
 # service state info
 service_running = False
@@ -312,4 +314,12 @@ async def read_data_opc(node_id: str):
 
 
 async def post_data_mqtt(topic: str, data_to_post: list):
-    await mqtt_client.publish(topic + "/data", json.dumps(data_to_post))
+    global mqtt_client
+
+    try:
+        await mqtt_client.publish(topic + "/data", json.dumps(data_to_post))
+    except MqttCodeError as e:
+        print("Connection to the MQTT broker lost!")
+        print("With reason:", e.__str__())
+        print("Trying to reconnect!")
+        mqtt_client = await mqtt.create_and_connect_mqtt_client()
