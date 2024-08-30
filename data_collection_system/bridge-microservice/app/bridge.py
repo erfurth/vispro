@@ -15,7 +15,6 @@ from typing import Annotated
 from fastapi import FastAPI, Depends
 
 from asyncua import Client
-from asyncua.crypto.security_policies import SecurityPolicyBasic256Sha256
 
 from .dependencies import ServiceReadWrite
 from .models import (
@@ -53,42 +52,20 @@ async def lifespan(app: FastAPI):
     # load environment variables from .env file
     load_dotenv()
 
-    # variable for checking, if connection to opcua-server is established
-    opcua_connected = False
+    # create opc-ua client object and connect to server
+    opcua_client = await opcua.create_and_connect_opcua_client()
 
-    while not opcua_connected:
+    # create mqtt-client-object
+    mqtt_client = await mqtt.create_and_connect_mqtt_client()
 
-        try:
-            # create opc-ua client object and save it to global variable
-            opcua_client = await opcua.create_opcua_client()
-            # connect to the opcua source server
-            await opcua_client.connect()
-            # connection established successfully
-            opcua_connected = True
-        except Exception as e:
-            print(e)
-            print("Could not connect to OPCUA-Server!")
-            print("Retry connecting in 10 seconds!")
-            await asyncio.sleep(10)
-
-    try:
-        # create mqtt-client-object
-        mqtt_client = mqtt.create_and_connect_mqtt_client()
-
-        # open connection to mqtt broker in context
-        # disconnect when leaving context
-        async with mqtt_client as client:
-            mqtt_client = client
-
-            # separate startup from shutdown logic
-            yield
-
-    except Exception as ex:
-        print("Connection to the MQTT broker could not be established!")
-        raise
+    # separate startup from shutdown logic
+    yield
 
     # disconnect from opcua source server
     opcua_client.disconnect()
+
+    # leave async context-manager of aiomqtt -> disconnect
+    await mqtt_client.__aexit__(None, None, None)
 
 
 # creating fast api application with the defined lifespan

@@ -6,7 +6,7 @@ services:
     environment:
       - PYTHONUNBUFFERED=1
     volumes:
-      - ./bridge-microservice/service.json:/bridge-microservice/app/conf/service.json
+      - ./bridge-microservice/service_local.json:/bridge-microservice/app/conf/service.json
 
   mosquitto:
     image: eclipse-mosquitto:2.0.18
