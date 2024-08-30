@@ -17,10 +17,12 @@ async def create_opcua_client() -> Client:
     opcua_client = Client(url=f"opc.tcp://{connection['host']}:{connection['port']}")
 
     # set username for opcua server
-    opcua_client.set_user(os.environ.get("OCPUA_USER_NAME"))
+    if user_name := os.environ.get("OCPUA_USER_NAME"):
+        opcua_client.set_user(user_name)
 
     # set the password for the opcua server
-    opcua_client.set_password(os.environ.get("OPCUA_PASSWORD"))
+    if user_pwd := os.environ.get("OPCUA_PASSWORD"):
+        opcua_client.set_password(user_pwd)
 
     # variable to save security policy
     policy = None
