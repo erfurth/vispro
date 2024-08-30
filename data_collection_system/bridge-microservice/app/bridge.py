@@ -66,6 +66,7 @@ async def lifespan(app: FastAPI):
             # connection established successfully
             opcua_connected = True
         except Exception as e:
+            print(e)
             print("Could not connect to OPCUA-Server!")
             print("Retry connecting in 10 seconds!")
             await asyncio.sleep(10)
