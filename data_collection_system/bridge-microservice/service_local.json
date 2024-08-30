@@ -1,6 +1,6 @@
 {
     "service": {
-        "name": "opcua-test",
+        "name": "opcua-mcp150",
         "protocols": {
             "input": "opcua",
             "output": "mqtt"
@@ -10,7 +10,7 @@
         "name": "testserver_2",
         "organisation": "private",
         "connection": {
-            "host": "192.168.240.1",
+            "host": "host.docker.internal",
             "port": 48020,
             "security": {
                 "policy": "Basic256Sha256",
