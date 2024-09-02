@@ -1,4 +1,10 @@
+import json
+import asyncio
+
 from datetime import timedelta, datetime
+
+from app.transport.opcua import read_data_opc, create_and_connect_opcua_client
+from app.transport.mqtt import post_data_mqtt
 
 
 def create_data_chunks(service_conf: dict) -> list:
@@ -56,3 +62,30 @@ def round_time_to_milliseconds(timestamp: datetime) -> datetime:
     timestamp = timestamp.replace(microsecond=new_microseconds)
 
     return timestamp
+
+
+async def process_data(service_state, opcua_client, mqtt_client):
+    # load data definition from file
+    with open("app/conf/service.json", encoding="utf8") as f:
+        service_config = json.load(f)
+
+    data_chunks = create_data_chunks(service_config)
+
+    while service_state["running"]:
+        try:
+            data_reads = [
+                read_data_opc(opcua_client, chunk["node_id"]) for chunk in data_chunks
+            ]
+            values = await asyncio.gather(*data_reads)
+            data_new_format = create_data_format(data_chunks, values)
+
+            await post_data_mqtt(
+                mqtt_client, service_config["service"]["name"], data_new_format
+            )
+
+            await asyncio.sleep(0.5)
+        except ConnectionError as e:
+            print("Connection to the MQTT broker lost!")
+            print("With reason:", e.__str__())
+            print("Trying to reconnect!")
+            opcua_client = await create_and_connect_opcua_client()

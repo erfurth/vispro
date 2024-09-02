@@ -2,6 +2,8 @@ import json
 import aiomqtt
 import asyncio
 
+from aiomqtt.exceptions import MqttCodeError
+
 
 def create_mqtt_client() -> aiomqtt.Client:
     # open configuration file to get connection information
@@ -42,3 +44,13 @@ async def create_and_connect_mqtt_client() -> aiomqtt.Client:
             await asyncio.sleep(10)
 
     return mqtt_client
+
+
+async def post_data_mqtt(mqtt_client, topic: str, data_to_post: list):
+    try:
+        await mqtt_client.publish(topic + "/data", json.dumps(data_to_post))
+    except MqttCodeError as e:
+        print("Connection to the MQTT broker lost!")
+        print("With reason:", e.__str__())
+        print("Trying to reconnect!")
+        mqtt_client = await create_and_connect_mqtt_client()
