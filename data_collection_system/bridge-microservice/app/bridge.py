@@ -1,5 +1,4 @@
 import asyncio
-import json
 
 from dotenv import load_dotenv
 
@@ -24,11 +23,9 @@ from .models import (
     WriteNodeRequest,
 )
 
-from aiomqtt.exceptions import MqttCodeError
-
 
 # service state info
-service_running = False
+service_state = {"running": False}
 
 # data structure for data reading and mapping
 data_config = None
@@ -86,7 +83,7 @@ async def root(service_rw: Annotated[ServiceReadWrite, Depends()]):
     service_config = service_rw.load_service_data()
 
     service = service_config["service"]
-    service |= {"service_running": f"{service_running}"}
+    service |= {"service_running": f"{service_state['running']}"}
     return service
 
 
@@ -261,12 +258,15 @@ async def remove_node_from_namespace(
 async def start_service():
     """Route starts the data collection process."""
 
-    global service_running
+    global service_state
     global opcua_client
+    global mqtt_client
 
-    if not service_running and opcua_client:
-        service_running = True
-        asyncio.create_task(process_data())
+    if not service_state["running"] and opcua_client:
+        service_state["running"] = True
+        asyncio.create_task(
+            helper.process_data(service_state, opcua_client, mqtt_client)
+        )
         return {"status": "Service started."}
 
     return {"status": "Service could not be started."}
@@ -276,50 +276,9 @@ async def start_service():
 async def stop_service():
     """Route stops the data collection process."""
 
-    global service_running
-    if service_running:
-        service_running = False
+    global service_state
+    if service_state["running"]:
+        service_state["running"] = False
         return {"status": "Service stopped."}
 
     return {"status": "Service is already stopped."}
-
-
-#######################################################################
-### -------------------- Async Helperfunctions -------------------- ###
-#######################################################################
-
-
-async def process_data():
-
-    # load data definition from file
-    with open("app/conf/service.json", encoding="utf8") as f:
-        service_config = json.load(f)
-
-    data_chunks = helper.create_data_chunks(service_config)
-
-    while service_running:
-        data_reads = [read_data_opc(chunk["node_id"]) for chunk in data_chunks]
-        values = await asyncio.gather(*data_reads)
-
-        data_new_format = helper.create_data_format(data_chunks, values)
-
-        await post_data_mqtt(service_config["service"]["name"], data_new_format)
-
-        await asyncio.sleep(0.5)
-
-
-async def read_data_opc(node_id: str):
-    tmp_node = opcua_client.get_node(node_id)
-    return await tmp_node.read_data_value()
-
-
-async def post_data_mqtt(topic: str, data_to_post: list):
-    global mqtt_client
-
-    try:
-        await mqtt_client.publish(topic + "/data", json.dumps(data_to_post))
-    except MqttCodeError as e:
-        print("Connection to the MQTT broker lost!")
-        print("With reason:", e.__str__())
-        print("Trying to reconnect!")
-        mqtt_client = await mqtt.create_and_connect_mqtt_client()

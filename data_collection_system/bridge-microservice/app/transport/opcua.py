@@ -61,3 +61,8 @@ async def create_and_connect_opcua_client() -> Client:
             await asyncio.sleep(10)
 
     return opcua_client
+
+
+async def read_data_opc(opcua_client, node_id: str):
+    tmp_node = opcua_client.get_node(node_id)
+    return await tmp_node.read_data_value()
