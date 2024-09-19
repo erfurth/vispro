@@ -17,7 +17,7 @@
                 "mode": "SignAndEncrypt"
             }
         },
-        "reading_rate": 0.5
+        "reading_rate": 0.05
     },
     "data_sink": {
         "name": "mqtt-broker",
