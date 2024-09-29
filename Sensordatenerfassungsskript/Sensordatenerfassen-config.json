@@ -1,16 +1,17 @@
 {
     "mqtt": {
-        "broker": "192.168.2.156",  // IP address of the MQTT broker to connect to
-        "port": 1883,  // Port number of the MQTT broker (default 1883 for unencrypted MQTT)
-        "topic": "sensordaten",  // The MQTT topic where sensor data will be published
-        "client_id": "data_publisher"  // Client ID used by the MQTT client to identify itself to the broker
+        "broker": "agb-mokipro-db.one.fc.eah-jena.de",  // MQTT broker address
+        "port": 1883,  // MQTT broker port (default for unencrypted MQTT)
+        "topic": "sensordaten",  // MQTT topic to publish sensor data to
+        "client_id": "mqtt_client"  // MQTT client ID (used to identify the client to the broker)
     },
     "intervals": {
-        "mqtt_publish_interval": 5,  // Time interval in seconds between publishing sensor data to MQTT
-        "sleep_interval": 1  // Time interval in seconds between sensor readings
+        "mqtt_publish_interval": 3,  // Time interval in seconds between each data publish
+        "sleep_interval": 3  // Sleep interval in seconds between sensor reads
     },
     "sensors": {
-        "dht22_pin": "D4",  // Pin on the board that is connected to the DHT22 temperature and humidity sensor
-        "ds1820_base_dir": "/sys/bus/w1/devices/"  // Base directory where the 1-Wire DS1820 sensors are located
+        "ds1820_base_dir": "/sys/bus/w1/devices/",  // Base directory for DS1820 sensor files
+        "sht31_address": "0x44",  // I2C address of the SHT31 sensor (in hexadecimal)
+        "bus": "1"  // I2C bus number used for the SHT31 sensor
     }
 }
