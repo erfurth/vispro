@@ -144,7 +144,7 @@
                 {
                     "metric_name": "position_b_actual",
                     "trivial_name": "Istposition B",
-                    "unit": "Degrees",
+                    "unit": "Milimeters",
                     "node_id": "/Channel/GeometricAxis/actProgPos[u1,11]"
                 },
                 {
