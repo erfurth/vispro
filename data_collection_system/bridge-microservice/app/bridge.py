@@ -83,7 +83,7 @@ async def root(service_rw: Annotated[ServiceReadWrite, Depends()]):
     service_config = service_rw.load_service_data()
 
     service = service_config["service"]
-    service |= {"service_running": f"{service_state['running']}"}
+    service |= {"service_running": service_state['running']}
     return service
 
 
