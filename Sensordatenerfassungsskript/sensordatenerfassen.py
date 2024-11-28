@@ -7,7 +7,7 @@ import smbus  # For SHT31 sensor communication
 from aiomqtt import Client, MqttError  # aiomqtt for asynchronous MQTT communication
 
 # Load configuration from config.json
-with open('Sensordatenerfassen-config.json', 'r') as config_file:
+with open('/home/pi2/Desktop/Sensordatenerfassen-config.json', 'r') as config_file:
     config = json.load(config_file)
 
 # MQTT configuration
