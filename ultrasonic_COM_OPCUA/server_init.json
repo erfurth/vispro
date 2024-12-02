@@ -1,0 +1,267 @@
+{
+    "machine_status": {
+        "type": "directory",
+        "value": {
+            "operation_mode": {
+                "type": "variable",
+                "value": 0,
+                "source": "opMode"
+            },
+            "cnc_status": {
+                "type": "variable",
+                "value": 0,
+                "source": "chanStatus"
+            },
+            "track_speed": {
+                "type": "variable",
+                "value": 0.0,
+                "source": "acVactw"
+            },
+            "interpolation_feed": {
+                "type": "variable",
+                "value": 0.0,
+                "source": "feedRateIpoOvr"
+            }
+        }
+    },
+    "machine_program": {
+        "type": "directory",
+        "value": {
+            "program_name": {
+                "type": "variable",
+                "value": "None",
+                "source": "progName"
+            },
+            "program_name_with_path": {
+                "type": "variable",
+                "value": "None",
+                "source": "progNameWithPath"
+            },
+            "program_status": {
+                "type": "variable",
+                "value": 0,
+                "source": "progStatus"
+            },
+            "program_line": {
+                "type": "variable",
+                "value": 0.0,
+                "source": "actLineNumber"
+            },
+            "sub_program": {
+                "type": "variable",
+                "value": 0.0,
+                "source": "actBlockI"
+            },
+            "sub_program_line": {
+                "type": "variable",
+                "value": 0.0,
+                "source": "blockNoStr"
+            },
+            "program_seek_offset": {
+                "type": "variable",
+                "value": 0.0,
+                "source": "seekOffset"
+            }
+        }
+    },
+    "tooling": {
+        "type": "directory",
+        "value": {
+            "tool": {
+                "type": "variable",
+                "value": "None",
+                "source": "actToolIdent"
+            },
+            "tool_base_positions": {
+                "type": "directory",
+                "value": {
+                    "tool_base_position_x": {
+                        "type": "variable",
+                        "value": 0.0,
+                        "source": "actToolBasePos_X"
+                    },
+                    "tool_base_position_y": {
+                        "type": "variable",
+                        "value": 0.0,
+                        "source": "actToolBasePos_Y"
+                    },
+                    "tool_base_position_z": {
+                        "type": "variable",
+                        "value": 0.0,
+                        "source": "actToolBasePos_Z"
+                    },
+                    "tool_base_position_a": {
+                        "type": "variable",
+                        "value": 0.0,
+                        "source": "actToolBasePos_A"
+                    },
+                    "tool_base_position_b": {
+                        "type": "variable",
+                        "value": 0.0,
+                        "source": "actToolBasePos_B"
+                    }
+                }
+            }
+        }
+    },
+    "axes": {
+        "type": "directory",
+        "value": {
+            "x_axis": {
+                "type": "directory",
+                "value": {
+                    "load": {
+                        "type": "variable",
+                        "value": 0.0,
+                        "source": "vaLoad_X"
+                    },
+                    "current": {
+                        "type": "variable",
+                        "value": 0.0,
+                        "source": "aaCurr_X"
+                    },
+                    "accaleration": {
+                        "type": "variable",
+                        "value": 0.0,
+                        "source": "aaAcc_X"
+                    },
+                    "disturbance_torque": {
+                        "type": "variable",
+                        "value": 0.0,
+                        "source": "vaDistTorque_X"
+                    }
+                }
+            },
+            "y_axis": {
+                "type": "directory",
+                "value": {
+                    "load": {
+                        "type": "variable",
+                        "value": 0.0,
+                        "source": "vaLoad_Y"
+                    },
+                    "current": {
+                        "type": "variable",
+                        "value": 0.0,
+                        "source": "aaCurr_Y"
+                    },
+                    "accaleration": {
+                        "type": "variable",
+                        "value": 0.0,
+                        "source": "aaAcc_Y"
+                    },
+                    "disturbance_torque": {
+                        "type": "variable",
+                        "value": 0.0,
+                        "source": "vaDistTorque_Y"
+                    }
+                }
+            },
+            "z_axis": {
+                "type": "directory",
+                "value": {
+                    "load": {
+                        "type": "variable",
+                        "value": 0.0,
+                        "source": "vaLoad_Z"
+                    },
+                    "current": {
+                        "type": "variable",
+                        "value": 0.0,
+                        "source": "aaCurr_Z"
+                    },
+                    "accaleration": {
+                        "type": "variable",
+                        "value": 0.0,
+                        "source": "aaAcc_Z"
+                    },
+                    "disturbance_torque": {
+                        "type": "variable",
+                        "value": 0.0,
+                        "source": "vaDistTorque_Z"
+                    }
+                }
+            },
+            "a_axis": {
+                "type": "directory",
+                "value": {
+                    "load": {
+                        "type": "variable",
+                        "value": 0.0,
+                        "source": "vaLoad_A"
+                    },
+                    "current": {
+                        "type": "variable",
+                        "value": 0.0,
+                        "source": "aaCurr_A"
+                    },
+                    "disturbance_torque": {
+                        "type": "variable",
+                        "value": 0.0,
+                        "source": "vaDistTorque_A"
+                    }
+                }
+            },
+            "b_axis": {
+                "type": "directory",
+                "value": {
+                    "load": {
+                        "type": "variable",
+                        "value": 0.0,
+                        "source": "vaLoad_B"
+                    },
+                    "current": {
+                        "type": "variable",
+                        "value": 0.0,
+                        "source": "aaCurr_B"
+                    },
+                    "disturbance_torque": {
+                        "type": "variable",
+                        "value": 0.0,
+                        "source": "vaDistTorque_B"
+                    }
+                }
+            }
+        }
+    },
+    "spindle": {
+        "type": "directory",
+        "value": {
+            "actual_speed": {
+                "type": "variable",
+                "value": 0.0,
+                "source": "actSpeed"
+            },
+            "speed_override": {
+                "type": "variable",
+                "value": 0.0,
+                "source": "speedOvr"
+            },
+            "drive_load": {
+                "type": "variable",
+                "value": 0.0,
+                "source": "driveLoad"
+            },
+            "actual_const_cutting_speed": {
+                "type": "variable",
+                "value": 0.0,
+                "source": "acConstCutSpeed"
+            },
+            "actual_set_direction": {
+                "type": "variable",
+                "value": 0,
+                "source": "acSDir"
+            },
+            "turn_state": {
+                "type": "variable",
+                "value": 0.0,
+                "source": "turnState"
+            },
+            "const_cut_speed": {
+                "type": "variable",
+                "value": 0.0,
+                "source": "cmdConstCutSpeed"
+            }
+        }
+    }
+}
