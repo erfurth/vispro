@@ -1,12 +1,21 @@
 services:
-  test_bridge:
+  bridge_mcp:
     build: ./bridge-microservice
     ports:
       - "8000:80"
     environment:
       - PYTHONUNBUFFERED=1
     volumes:
-      - ./bridge-microservice/service_mcp.json:/bridge-microservice/app/conf/service.json
+      - ./services-confs/service_local.json:/bridge-microservice/app/conf/service.json
+
+  bridge_ultrasonic:
+    build: ./bridge-microservice
+    ports:
+      - "8001:80"
+    environment:
+      - PYTHONUNBUFFERED=1
+    volumes:
+      - ./services-confs/service_ultrasonic.json:/bridge-microservice/app/conf/service.json
 
   mosquitto:
     image: eclipse-mosquitto:2.0.18
