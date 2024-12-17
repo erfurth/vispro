@@ -1,0 +1,57 @@
+{
+    "service": {
+        "name": "opcua-ultrasonic",
+        "protocols": {
+            "input": "opcua",
+            "output": "mqtt"
+        }
+    },
+    "data_source": {
+        "name": "ultrasonic",
+        "oranisation": "private",
+        "connection": {
+            "host": "192.168.178.36",
+            "port": 4840,
+            "security": {
+                "policy": "None",
+                "mode": "None"
+            }
+        },
+        "reading_rate": 0.5
+    },
+    "data_sink": {
+        "name": "mqtt-broker",
+        "organisation": "private",
+        "connection": {
+            "host": "mosquitto",
+            "port": 1883,
+            "keepalive": 60
+        }
+    },
+    "namespaces": [
+        {
+            "name": "http://examples.freeopcua.github.io",
+            "index": 2,
+            "viewed_nodes": [
+                {
+                    "metric_name": "a_axis_current",
+                    "trivial_name": "Strom A-Achse",
+                    "unit": "Ampere",
+                    "node_id": "/Objects/axes/a_axis/current"
+                },
+                {
+                    "metric_name": "a_axis_disturbance_torque",
+                    "trivial_name": "Störungsmoment A-Achse",
+                    "unit": "Ampere",
+                    "node_id": "/Objects/axes/a_axis/disturbance_torque"
+                },
+                {
+                    "metric_name": "a_axis_load",
+                    "trivial_name": "Last A-Achse",
+                    "unit": "Ampere",
+                    "node_id": "/Objects/axes/a_axis/load"
+                }
+            ]
+        }
+    ]
+}

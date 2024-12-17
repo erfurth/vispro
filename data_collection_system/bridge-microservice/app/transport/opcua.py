@@ -32,13 +32,16 @@ async def create_opcua_client() -> Client:
     match connection["security"]["policy"]:
         case "Basic256Sha256":
             policy = SecurityPolicyBasic256Sha256
+        case "None":
+            policy = None
 
-    # set security configuration of opcua client
-    await opcua_client.set_security(
-        policy=policy,
-        certificate="app/certificates/eah_mcp_150_cert.der",
-        private_key="app/certificates/eah_mcp_150_private_key.pem",
-    )
+    if policy:
+        # set security configuration of opcua client
+        await opcua_client.set_security(
+            policy=policy,
+            certificate="app/certificates/eah_mcp_150_cert.der",
+            private_key="app/certificates/eah_mcp_150_private_key.pem",
+        )
 
     return opcua_client
 
