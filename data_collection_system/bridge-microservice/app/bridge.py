@@ -83,7 +83,7 @@ async def root(service_rw: Annotated[ServiceReadWrite, Depends()]):
     service_config = service_rw.load_service_data()
 
     service = service_config["service"]
-    service |= {"service_running": service_state['running']}
+    service |= {"service_running": service_state["running"]}
     return service
 
 
@@ -255,17 +255,21 @@ async def remove_node_from_namespace(
 
 
 @app.get("/start-service")
-async def start_service():
+async def start_service(service_rw: Annotated[ServiceReadWrite, Depends()]):
     """Route starts the data collection process."""
 
     global service_state
     global opcua_client
     global mqtt_client
 
+    service_config = service_rw.load_service_data()
+
     if not service_state["running"] and opcua_client:
         service_state["running"] = True
         asyncio.create_task(
-            helper.process_data(service_state, opcua_client, mqtt_client)
+            helper.process_data(
+                service_config, service_state, opcua_client, mqtt_client
+            )
         )
         return {"status": "Service started."}
 

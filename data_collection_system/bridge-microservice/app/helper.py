@@ -64,10 +64,7 @@ def round_time_to_milliseconds(timestamp: datetime) -> datetime:
     return timestamp
 
 
-async def process_data(service_state, opcua_client, mqtt_client):
-    # load data definition from file
-    with open("app/conf/service.json", encoding="utf8") as f:
-        service_config = json.load(f)
+async def process_data(service_config, service_state, opcua_client, mqtt_client):
 
     data_chunks = create_data_chunks(service_config)
 
