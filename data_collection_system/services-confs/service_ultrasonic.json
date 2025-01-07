@@ -10,7 +10,7 @@
         "name": "ultrasonic",
         "oranisation": "private",
         "connection": {
-            "host": "192.168.178.36",
+            "host": "10.4.147.54",
             "port": 4840,
             "security": {
                 "policy": "None",
@@ -37,19 +37,139 @@
                     "metric_name": "a_axis_current",
                     "trivial_name": "Strom A-Achse",
                     "unit": "Ampere",
-                    "node_id": "/Objects/axes/a_axis/current"
+                    "node_id": "axes.a_axis.current"
                 },
                 {
                     "metric_name": "a_axis_disturbance_torque",
                     "trivial_name": "Störungsmoment A-Achse",
                     "unit": "Ampere",
-                    "node_id": "/Objects/axes/a_axis/disturbance_torque"
+                    "node_id": "axes.a_axis.disturbance_torque"
                 },
                 {
                     "metric_name": "a_axis_load",
                     "trivial_name": "Last A-Achse",
                     "unit": "Ampere",
-                    "node_id": "/Objects/axes/a_axis/load"
+                    "node_id": "axes.a_axis.load"
+                },
+                {
+                    "metric_name": "b_axis_current",
+                    "trivial_name": "Strom B-Achse",
+                    "unit": "Ampere",
+                    "node_id": "axes.b_axis.current"
+                },
+                {
+                    "metric_name": "b_axis_disturbance_torque",
+                    "trivial_name": "Störungsmoment B-Achse",
+                    "unit": "Ampere",
+                    "node_id": "axes.b_axis.disturbance_torque"
+                },
+                {
+                    "metric_name": "b_axis_load",
+                    "trivial_name": "Last B-Achse",
+                    "unit": "Ampere",
+                    "node_id": "axes.b_axis.load"
+                },
+                {
+                    "metric_name": "x_axis_acceleration",
+                    "trivial_name": "Beschleunigung X-Achse",
+                    "unit": "Ampere",
+                    "node_id": "axes.x_axis.acceleration"
+                },
+                {
+                    "metric_name": "x_axis_current",
+                    "trivial_name": "Strom X-Achse",
+                    "unit": "Ampere",
+                    "node_id": "axes.x_axis.current"
+                },
+                {
+                    "metric_name": "x_axis_disturbance_torque",
+                    "trivial_name": "Störungsmoment X-Achse",
+                    "unit": "Ampere",
+                    "node_id": "axes.x_axis.disturbance_torque"
+                },
+                {
+                    "metric_name": "x_axis_load",
+                    "trivial_name": "Last X-Achse",
+                    "unit": "Ampere",
+                    "node_id": "axes.x_axis.load"
+                },
+                {
+                    "metric_name": "y_axis_acceleration",
+                    "trivial_name": "Beschleunigung Y-Achse",
+                    "unit": "Ampere",
+                    "node_id": "axes.y_axis.acceleration"
+                },
+                {
+                    "metric_name": "y_axis_current",
+                    "trivial_name": "Strom Y-Achse",
+                    "unit": "Ampere",
+                    "node_id": "axes.y_axis.current"
+                },
+                {
+                    "metric_name": "y_axis_disturbance_torque",
+                    "trivial_name": "Störungsmoment Y-Achse",
+                    "unit": "Ampere",
+                    "node_id": "axes.y_axis.disturbance_torque"
+                },
+                {
+                    "metric_name": "y_axis_load",
+                    "trivial_name": "Last Y-Achse",
+                    "unit": "Ampere",
+                    "node_id": "axes.y_axis.load"
+                },
+                {
+                    "metric_name": "z_axis_acceleration",
+                    "trivial_name": "Beschleunigung Z-Achse",
+                    "unit": "Ampere",
+                    "node_id": "axes.z_axis.acceleration"
+                },
+                {
+                    "metric_name": "z_axis_current",
+                    "trivial_name": "Strom Z-Achse",
+                    "unit": "Ampere",
+                    "node_id": "axes.z_axis.current"
+                },
+                {
+                    "metric_name": "z_axis_disturbance_torque",
+                    "trivial_name": "Störungsmoment Z-Achse",
+                    "unit": "Ampere",
+                    "node_id": "axes.z_axis.disturbance_torque"
+                },
+                {
+                    "metric_name": "z_axis_load",
+                    "trivial_name": "Last Z-Achse",
+                    "unit": "Ampere",
+                    "node_id": "axes.z_axis.load"
+                },
+                {
+                    "metric_name": "program_line",
+                    "trivial_name": "Zeile Maschinenprogramm",
+                    "unit": "Integer",
+                    "node_id": "machine_program.program_line"
+                },
+                {
+                    "metric_name": "program_seek_offset",
+                    "trivial_name": "Offset Maschinenprogramm",
+                    "unit": "Integer",
+                    "node_id": "machine_program.program_seek_offset"
+                },
+                {
+                    "metric_name": "program_status",
+                    "trivial_name": "Status des Maschinenprogramms",
+                    "unit": "Integer",
+                    "node_id": "machine_program.program_status"
+                },
+                {
+                    "metric_name": "sub_program",
+                    "trivial_name": "Unterprogramm",
+                    "unit": "Integer",
+                    "node_id": "machine_program.sub_program"
+                },
+                {
+                    "metric_name": "sub_program_line",
+                    "trivial_name": "Zeile Maschinenunterprogramm",
+                    "unit": "Integer",
+                    "node_id": "machine_program.sub_program_line"
                 }
             ]
         }
