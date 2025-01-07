@@ -117,7 +117,7 @@ async def run_opcua_server(data_queue):
     server_nodes = await usc.initialize_opcua_server(
         server,
         "http://examples.freeopcua.github.io",
-        "opc.tcp://127.0.0.1:4840/freeopcua/server/",
+        "opc.tcp://0.0.0.0:4840/freeopcua/server/",
         "server_init.json",
     )
 
@@ -129,13 +129,18 @@ async def run_opcua_server(data_queue):
                 print(f"OPCUA-msg-id: {msg_id}")
                 print(f"OPCUA: {data_item}")
 
-                for paramter in data_item:
-                    node_type = await server_nodes[paramter].read_data_type_as_variant_type()
+                for parameter in data_item:
+                    node_type = await server_nodes[parameter].read_data_type_as_variant_type()
                     
-                    data_item[paramter] = uam.correct_type(node_type, data_item[paramter])
-                    print(data_item[paramter])
+                    data_item[parameter] = uam.correct_type(node_type, data_item[parameter])
+                    print(data_item[parameter])
 
-                    await server_nodes[paramter].set_value(data_item[paramter])
+                    await server_nodes[parameter].set_value(data_item[parameter])
+
+            for node in server_nodes.values():
+                old_value = (await node.read_data_value()).Value.Value
+                await node.write_value(old_value)
+
 
             await asyncio.sleep(0.1)
 
