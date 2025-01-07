@@ -120,7 +120,7 @@
                         "value": 0.0,
                         "source": "aaCurr_X"
                     },
-                    "accaleration": {
+                    "acceleration": {
                         "type": "variable",
                         "value": 0.0,
                         "source": "aaAcc_X"
@@ -145,7 +145,7 @@
                         "value": 0.0,
                         "source": "aaCurr_Y"
                     },
-                    "accaleration": {
+                    "acceleration": {
                         "type": "variable",
                         "value": 0.0,
                         "source": "aaAcc_Y"
@@ -170,7 +170,7 @@
                         "value": 0.0,
                         "source": "aaCurr_Z"
                     },
-                    "accaleration": {
+                    "acceleration": {
                         "type": "variable",
                         "value": 0.0,
                         "source": "aaAcc_Z"

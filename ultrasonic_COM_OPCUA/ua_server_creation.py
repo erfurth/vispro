@@ -1,29 +1,42 @@
 import json
 from asyncua import Server
+from asyncua.ua.uatypes import NodeId
 import asyncio
 
 
 async def parse_server_definition(
-    idx, current_node, definition: dict, mapping: dict
+    idx, current_node, definition: dict, mapping: dict, path: str=""
 ) -> None:
     # pass through all entries of the current part of the server definition
     for entry in definition:
         # case a "variable" is defined
         if definition[entry]["type"] == "variable":
+            
+            # build variable path string and build NodeId Object from it 
+            var_path = path + entry
+            node_id = NodeId(var_path, idx)
+            
             # add variable and default value to the server
             tmp_var = await current_node.add_variable(
-                idx, entry, definition[entry]["value"]
+                node_id, entry, definition[entry]["value"]
             )
             # save reference to the server entry by machine ID
             mapping[definition[entry]["source"]] = tmp_var
         # case a "directory" is defined
         elif definition[entry]["type"] == "directory":
+            # build current path and create NodeId from it
+            sub_path = path + entry
+            node_id = NodeId(sub_path, idx)
+            
             # add directory to the server
-            tmp_dir = await current_node.add_folder(idx, entry)
+            tmp_dir = await current_node.add_folder(node_id, entry)
+
+            # add . as dividing symbol for path string
+            sub_path += "."
 
             # parse the subdefinition of the directory
             await parse_server_definition(
-                idx, tmp_dir, definition[entry]["value"], mapping
+                idx, tmp_dir, definition[entry]["value"], mapping, sub_path
             )
 
 
