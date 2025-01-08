@@ -1,2 +1,2 @@
 asyncua==1.1.5
-pywin32==306
+pywin32==308
