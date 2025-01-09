@@ -23,16 +23,15 @@ services:
       DSPACE_REST_HOST: localhost
       DSPACE_REST_PORT: 8080
       DSPACE_REST_NAMESPACE: /server
-    image: dspace/dspace-angular:${DSPACE_VER:-latest}
     build:
       context: ..
       dockerfile: Dockerfile
     networks:
       dspacenet:
     ports:
-    - published: 4000
-      target: 4000
-    - published: 9876
-      target: 9876
+      - published: 4000
+        target: 4000
+      - published: 9876
+        target: 9876
     stdin_open: true
     tty: true
