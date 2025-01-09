@@ -81,8 +81,8 @@ services:
     image: solr:8.11.3
     ports:
       - "8983:8983"
-    volumes:
-      - ./test/dspace/solr:/var/solr/data
+    # volumes:
+    #   - ./test/dspace/solr:/var/solr/data
     networks:
       dspacenet:
     entrypoint:
