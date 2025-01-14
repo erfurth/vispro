@@ -16,6 +16,8 @@ services:
       - PYTHONUNBUFFERED=1
     volumes:
       - ./services-confs/service_ultrasonic.json:/bridge-microservice/app/conf/service.json
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
 
   mosquitto:
     image: eclipse-mosquitto:2.0.18
