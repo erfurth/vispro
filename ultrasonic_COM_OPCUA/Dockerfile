@@ -21,6 +21,8 @@ RUN x11vnc -storepasswd 1234 ~/.vnc/passwd
 
 COPY . /com-opcua-bridge
 
+EXPOSE 3010 4841
+
 CMD Xvfb :0 -screen 0 1024x768x24 & \
     fluxbox & \
     x11vnc -display :0 -passwd 1234 -forever

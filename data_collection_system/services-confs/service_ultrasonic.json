@@ -11,7 +11,7 @@
         "oranisation": "private",
         "connection": {
             "host": "10.4.147.54",
-            "port": 4840,
+            "port": 4841,
             "security": {
                 "policy": "None",
                 "mode": "None"
