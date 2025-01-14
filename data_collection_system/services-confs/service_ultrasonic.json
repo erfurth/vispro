@@ -10,7 +10,7 @@
         "name": "ultrasonic",
         "oranisation": "private",
         "connection": {
-            "host": "10.4.147.54",
+            "host": "host.docker.internal",
             "port": 4841,
             "security": {
                 "policy": "None",
