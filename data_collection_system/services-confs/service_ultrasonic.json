@@ -170,6 +170,108 @@
                     "trivial_name": "Zeile Maschinenunterprogramm",
                     "unit": "Integer",
                     "node_id": "machine_program.sub_program_line"
+                },
+                {
+                    "metric_name": "cnc_status",
+                    "trivial_name": "CNC Status",
+                    "unit": "Integer",
+                    "node_id": "machine_status.cnc_status"
+                },
+                {
+                    "metric_name": "interpolation_feed",
+                    "trivial_name": "Interpolierter Vorschub",
+                    "unit": "Percent",
+                    "node_id": "machine_status.interpolation_feed"
+                },
+                {
+                    "metric_name": "operation_mode",
+                    "trivial_name": "Betriebsart",
+                    "unit": "Integer",
+                    "node_id": "machine_status.operation_mode"
+                },
+                {
+                    "metric_name": "track_speed",
+                    "trivial_name": "Bahngeschwindigkeit",
+                    "unit": "Double",
+                    "node_id": "machine_status.track_speed"
+                },
+                {
+                    "metric_name": "actual_const_cutting_speed",
+                    "trivial_name": "Aktuelle konstante Schnittgeschwindigkeit",
+                    "unit": "m/min",
+                    "node_id": "spindle.actual_const_cutting_speed"
+                },
+                {
+                    "metric_name": "actual_set_direction",
+                    "trivial_name": "Aktuelle Spindeldrehrichtung",
+                    "unit": "Integer",
+                    "node_id": "spindle.actual_set_direction"
+                },
+                {
+                    "metric_name": "actual_speed",
+                    "trivial_name": "Spindeldrehzahl Istwert",
+                    "unit": "U/min",
+                    "node_id": "spindle.actual_speed"
+                },
+                {
+                    "metric_name": "const_cut_speed",
+                    "trivial_name": "Aktuelle konstante Schnittgeschwindigkeit",
+                    "unit": "m/min",
+                    "node_id": "spindle.const_cut_speed"
+                },
+                {
+                    "metric_name": "drive_load",
+                    "trivial_name": "Auslastung",
+                    "unit": "Percent",
+                    "node_id": "spindle.drive_load"
+                },
+                {
+                    "metric_name": "speed_override",
+                    "trivial_name": "Spindeloverride",
+                    "unit": "Percent",
+                    "node_id": "spindle.speed_override"
+                },
+                {
+                    "metric_name": "turn_state",
+                    "trivial_name": "Drehzustand",
+                    "unit": "Integer",
+                    "node_id": "spindle.turn_state"
+                },
+                {
+                    "metric_name": "tool",
+                    "trivial_name": "Aktives Werkzeug",
+                    "unit": "String",
+                    "node_id": "tooling.tool"
+                },
+                {
+                    "metric_name": "tool_base_position_a",
+                    "trivial_name": "Werkzeugaufnahme A-Achse",
+                    "unit": "mm",
+                    "node_id": "tooling.tool_base_positions.tool_base_position_a"
+                },
+                {
+                    "metric_name": "tool_base_position_b",
+                    "trivial_name": "Werkzeugaufnahme B-Achse",
+                    "unit": "mm",
+                    "node_id": "tooling.tool_base_positions.tool_base_position_b"
+                },
+                {
+                    "metric_name": "tool_base_position_x",
+                    "trivial_name": "Werkzeugaufnahme X-Achse",
+                    "unit": "mm",
+                    "node_id": "tooling.tool_base_positions.tool_base_position_x"
+                },
+                {
+                    "metric_name": "tool_base_position_y",
+                    "trivial_name": "Werkzeugaufnahme Y-Achse",
+                    "unit": "mm",
+                    "node_id": "tooling.tool_base_positions.tool_base_position_y"
+                },
+                {
+                    "metric_name": "tool_base_position_z",
+                    "trivial_name": "Werkzeugaufnahme Z-Achse",
+                    "unit": "mm",
+                    "node_id": "tooling.tool_base_positions.tool_base_position_z"
                 }
             ]
         }
