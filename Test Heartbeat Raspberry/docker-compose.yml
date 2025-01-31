@@ -1,0 +1,27 @@
+version: '3.8'
+
+services:
+  flask:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: python flask_app.py
+    ports:
+      - "5000:5000"
+    networks:
+      - app_network
+
+  nicegui:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: python nicegui_app.py
+    ports:
+      - "8050:8050"
+    depends_on:
+      - flask
+    networks:
+      - app_network
+
+networks:
+  app_network:
