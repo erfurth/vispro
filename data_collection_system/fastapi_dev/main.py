@@ -4,7 +4,7 @@ from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
 
-origins = ["*"]
+origins = ["https://grafana.agb.fc.eah-jena.de"]
 
 app.add_middleware(
     CORSMiddleware,
