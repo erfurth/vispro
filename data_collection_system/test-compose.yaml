@@ -1,0 +1,13 @@
+services:
+  test_api:
+    build: ./fastapi_dev
+    ports:
+      - "8002:80"
+    environment:
+      - PYTHONUNBUFFERED=1
+  test_grafana:
+    image: grafana/grafana
+    ports:
+      - "3000:3000"
+    environment:
+      - GF_PLUGINS_PREINSTALL=volkovlabs-form-panel
