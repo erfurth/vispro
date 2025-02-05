@@ -1,10 +1,18 @@
+from pydantic import BaseModel
+
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 
+class StartData(BaseModel):
+    service_running: str
+    user_name: str
+    work_item: str
+
+
 app = FastAPI()
 
-origins = ["https://grafana.agb.fc.eah-jena.de"]
+origins = ["*"]
 
 app.add_middleware(
     CORSMiddleware,
@@ -14,7 +22,27 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+service_state = StartData(service_running="stopped", user_name="", work_item="")
 
-@app.get("/grafana-test")
-async def grafana_test() -> dict:
-    return {"user_name": "Dagobert Duck", "work_item": "Glückstaler"}
+
+@app.get("/")
+async def get_status() -> StartData:
+    global service_state
+    return service_state
+
+
+@app.put("/toggle-service")
+async def toggle_service(start_data: StartData) -> StartData:
+    global service_state
+
+    if service_state.service_running == "stopped":
+        service_state = start_data.model_copy()
+        service_state.service_running = "running"
+        return service_state
+
+    if service_state.service_running == "running":
+        service_state.user_name = ""
+        service_state.work_item = ""
+        service_state.service_running = "stopped"
+
+        return service_state
