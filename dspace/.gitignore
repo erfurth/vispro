@@ -1,0 +1,5 @@
+# ignoring everything from directory
+back-end/postgres/data
+
+# except the following files
+!back-end/postgres/data/.gitkeep
