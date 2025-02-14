@@ -166,7 +166,7 @@ async def list_nodes_of_namespace(
     service_config = service_rw.load_service_data()
 
     try:
-        namespace = namespace.get_namespace_by_index(service_config, space_num)
+        namespace = nspace.get_namespace_by_index(service_config, space_num)
         return namespace["viewed_nodes"]
     except IndexError as e:
         return {"message": e.__str__()}
