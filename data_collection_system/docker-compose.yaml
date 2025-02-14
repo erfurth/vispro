@@ -1,4 +1,11 @@
 services:
+
+  test_api:
+    build: ./fastapi_dev
+    ports:
+      - "8002:80"
+    environment:
+      - PYTHONUNBUFFERED=1
   bridge_mcp:
     build: ./bridge-microservice
     ports:
