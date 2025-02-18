@@ -1,5 +1,7 @@
 # ignoring everything from directory
 back-end/postgres/data
 
-# except the following files
-!back-end/postgres/data/.gitkeep
+# exclude solr core data
+back-end/test/dspace/solr/*/data/
+back-end/test/dspace/solr/*/core.properties.lock
+back-end/test/dspace/solr/*/replication.properties
