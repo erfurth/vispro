@@ -47,7 +47,7 @@ services:
     tty: true
     volumes:
     #  # Keep DSpace assetstore directory between reboots
-    #  - assetstore:/dspace/assetstore
+      - assetstore:/dspace/assetstore
     #  # Mount local [src]/dspace/config/ to container. This syncs your local configs with container
     #   # NOTE: Environment variables specified above will OVERRIDE any configs in local.cfg or dspace.cfg
       - ./back-end/test/dspace/config:/dspace/config
