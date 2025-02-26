@@ -22,6 +22,8 @@ services:
       dspace__P__name: 'DSpace Started with Docker Compose'
       # db.url: Ensure we are using the 'dspacedb' image for our database
       db__P__url: 'jdbc:postgresql://dspacedb:5432/dspace'
+      #cora
+      #rest__P__cors__P__allowed__D__origins: dspace.mokipro.fc.eah-jena.de
       # solr.server: Ensure we are using the 'dspacesolr' image for Solr
       solr__P__server: http://dspacesolr:8983/solr
       # proxies.trusted.ipranges: This setting is required for a REST API running in Docker to trust requests
@@ -44,9 +46,9 @@ services:
     stdin_open: true
     tty: true
     volumes:
-      #   # Keep DSpace assetstore directory between reboots
-      #   - assetstore:/dspace/assetstore
-      #   # Mount local [src]/dspace/config/ to container. This syncs your local configs with container
+      #  # Keep DSpace assetstore directory between reboots
+      - assetstore:/dspace/assetstore
+      #  # Mount local [src]/dspace/config/ to container. This syncs your local configs with container
       #   # NOTE: Environment variables specified above will OVERRIDE any configs in local.cfg or dspace.cfg
       - ./back-end/test/dspace/config:/dspace/config
     #   # Ensure that the database is ready BEFORE starting tomcat
@@ -60,6 +62,8 @@ services:
         while (!</dev/tcp/dspacedb/5432) > /dev/null 2>&1; do sleep 1; done;
         /dspace/bin/dspace database migrate
         java -jar /dspace/webapps/server-boot.jar --dspace.dir=/dspace
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
   # DSpace PostgreSQL database container
   dspacedb:
     container_name: dspacedb
@@ -108,7 +112,7 @@ services:
     container_name: dspace-angular
     environment:
       DSPACE_UI_SSL: 'false'
-      DSPACE_UI_HOST: dspace-angular
+      DSPACE_UI_HOST: dsapce-angular
       DSPACE_UI_PORT: '4000'
       DSPACE_UI_NAMESPACE: /
       DSPACE_REST_SSL: 'true'
@@ -127,6 +131,8 @@ services:
         target: 9876
     stdin_open: true
     tty: true
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
   nginx:
     container_name: nginx
     image: nginx
@@ -135,6 +141,9 @@ services:
     ports:
       - "80:80"
       - "443:443"
+    depends_on:
+      - dspace
+      - dspace-angular
     networks:
       - dspacenet
     extra_hosts:
