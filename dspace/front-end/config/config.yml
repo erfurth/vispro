@@ -1,5 +1,5 @@
 rest:
   ssl: true
-  host: sandbox.dspace.org
+  host: dspace.mokipro.fc.eah-jena.de
   port: 443
   nameSpace: /server
