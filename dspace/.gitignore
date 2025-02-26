@@ -2,6 +2,7 @@
 back-end/postgres/data
 
 # exclude solr core data
+back-end/test/dspace/solr/statistics
 back-end/test/dspace/solr/*/data/
 back-end/test/dspace/solr/*/core.properties.lock
 back-end/test/dspace/solr/*/replication.properties
