@@ -11,7 +11,7 @@ from sinucom import Machine
 from sinucom import _IMachineEvents, defaultNamedNotOptArg
 
 
-def run_com_client():
+async def run_com_client():
     pythoncom.CoInitialize()
     # register machine object
     machine = Machine()
@@ -43,7 +43,7 @@ def run_com_client():
 
             print(f"status: {result} | client_message_id: {message_id}")
 
-            time.sleep(0.1)
+            await asyncio.sleep(0.01)
 
 
 class EventListener(_IMachineEvents):
@@ -81,7 +81,7 @@ class EventListener(_IMachineEvents):
         self.data_queue.put_nowait(data_item)
 
 
-def run_com_server(data_queue):
+async def run_com_server(data_queue):
     pythoncom.CoInitialize()
     # regiter machine object
     machine = win32com.client.Dispatch("Sincom.Machine.1")
@@ -109,6 +109,7 @@ def run_com_server(data_queue):
     # start server listening loop
     while True:
         pythoncom.PumpWaitingMessages()
+        await asyncio.sleep(0.01)
 
 
 async def run_opcua_server(data_queue):
