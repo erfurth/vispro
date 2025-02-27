@@ -9,6 +9,7 @@
             <map>
                 <entry key="0" value-ref="localStore"/>
                 <entry key="1" value-ref="s3Store"/>
+                <entry key="2" value-ref="cephS3Store"/>
             </map>
         </property>
     </bean>
@@ -33,6 +34,22 @@
 
         <!-- Subfolder to organize assets within the bucket, in case this bucket is shared  -->
         <!-- Optional, default is root level of bucket -->
+        <property name="subfolder" value="${assetstore.s3.subfolder}"/>
+    </bean>
+
+    <bean name="cephS3Store" class="org.dspace.storage.bitstore.CephS3BitStoreService" scope="singleton" lazy-init="true">
+        <!-- Aktivierungsflag -->
+        <property name="enabled" value="${assetstore.s3.enabled}"/>
+        <!-- Zugangsdaten -->
+        <property name="awsAccessKey" value="${assetstore.s3.awsAccessKey}"/>
+        <property name="awsSecretKey" value="${assetstore.s3.awsSecretKey}"/>
+        <!-- AWS Region (Platzhalter, da Ceph keine Region im AWS-Sinne benötigt) -->
+        <property name="awsRegionName" value="${assetstore.s3.awsRegionName}"/>
+        <!-- Der benutzerdefinierte Ceph-Endpunkt -->
+        <property name="cephEndpoint" value="${assetstore.s3.cephEndpoint}"/>
+        <!-- Weitere Einstellungen -->
+        <property name="useRelativePath" value="${assetstore.s3.useRelativePath}"/>
+        <property name="bucketName" value="${assetstore.s3.bucketName}"/>
         <property name="subfolder" value="${assetstore.s3.subfolder}"/>
     </bean>
 
