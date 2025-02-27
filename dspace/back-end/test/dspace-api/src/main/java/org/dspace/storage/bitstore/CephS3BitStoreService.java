@@ -123,65 +123,64 @@ public class CephS3BitStoreService extends BaseBitStoreService {
      * dass er den benutzerdefinierten Ceph-Endpunkt nutzt und Path-Style Access erzwingt.
      */
     @Override
-public void init() throws IOException {
-    if (this.isInitialized() || !this.isEnabled()) {
-        return;
-    }
-
-    try {
-        // Aufbau des S3-Clients mit benutzerdefiniertem Ceph-Endpunkt und Path-Style Access
-        AWSCredentials credentials = null;
-        if (StringUtils.isNotBlank(getAwsAccessKey()) && StringUtils.isNotBlank(getAwsSecretKey())) {
-            log.info("Using configured Ceph credentials");
-            credentials = new BasicAWSCredentials(getAwsAccessKey(), getAwsSecretKey());
-        } else {
-            log.info("No explicit credentials provided; attempting to use default credentials");
-        }
-        
-        AmazonS3ClientBuilder builder = AmazonS3ClientBuilder.standard()
-            .withEndpointConfiguration(new AwsClientBuilder.EndpointConfiguration(getCephEndpoint(), getAwsRegionName()))
-            .withPathStyleAccessEnabled(true);
-
-        if (credentials != null) {
-            builder.withCredentials(new AWSStaticCredentialsProvider(credentials));
-        }
-        s3Service = builder.build();
-
-        // Bucketname festlegen
-        if (StringUtils.isEmpty(bucketName)) {
-            String hostname = Utils.getHostName(configurationService.getProperty("dspace.ui.url"));
-            bucketName = DEFAULT_BUCKET_PREFIX + hostname;
-            log.warn("BucketName not configured, using default: " + bucketName);
+    public void init() throws IOException {
+        if (this.isInitialized() || !this.isEnabled()) {
+            return;
         }
 
-        // Bucket anlegen falls nicht vorhanden
         try {
-            if (!s3Service.doesBucketExistV2(bucketName)) {
-                s3Service.createBucket(bucketName);
-                log.info("Creating new S3 Bucket: " + bucketName);
+            // Aufbau des S3-Clients mit benutzerdefiniertem Ceph-Endpunkt und Path-Style Access
+            AWSCredentials credentials = null;
+            if (StringUtils.isNotBlank(getAwsAccessKey()) && StringUtils.isNotBlank(getAwsSecretKey())) {
+                log.info("Using configured Ceph credentials");
+                credentials = new BasicAWSCredentials(getAwsAccessKey(), getAwsSecretKey());
+            } else {
+                log.info("No explicit credentials provided; attempting to use default credentials");
             }
-        } catch (AmazonClientException e) {
+            
+            AmazonS3ClientBuilder builder = AmazonS3ClientBuilder.standard()
+                .withEndpointConfiguration(new AwsClientBuilder.EndpointConfiguration(getCephEndpoint(), getAwsRegionName()))
+                .withPathStyleAccessEnabled(true);
+
+            if (credentials != null) {
+                builder.withCredentials(new AWSStaticCredentialsProvider(credentials));
+            }
+            s3Service = builder.build();
+
+            // Bucketname festlegen
+            if (StringUtils.isEmpty(bucketName)) {
+                String hostname = Utils.getHostName(configurationService.getProperty("dspace.ui.url"));
+                bucketName = DEFAULT_BUCKET_PREFIX + hostname;
+                log.warn("BucketName not configured, using default: " + bucketName);
+            }
+
+            // Bucket anlegen falls nicht vorhanden
+            try {
+                if (!s3Service.doesBucketExistV2(bucketName)) {
+                    s3Service.createBucket(bucketName);
+                    log.info("Creating new S3 Bucket: " + bucketName);
+                }
+            } catch (AmazonClientException e) {
+                throw new IOException(e);
+            }
+
+            // Hier direkt den TransferManager bauen, anstatt FunctionalUtils.getDefaultOrBuild zu nutzen
+            tm = TransferManagerBuilder.standard()
+                    .withS3Client(s3Service)
+                    .withAlwaysCalculateMultipartMd5(true)
+                    .build();
+            if (tm == null) {
+                throw new IOException("TransferManager initialization failed; tm is null");
+            }
+
+            this.initialized = true;
+            log.info("Ceph S3 AssetStore ready! Bucket: " + bucketName);
+        } catch (Exception e) {
+            this.initialized = false;
+            log.error("Cannot initialize Ceph S3 AssetStore!", e);
             throw new IOException(e);
         }
-
-        // Hier direkt den TransferManager bauen, anstatt FunctionalUtils.getDefaultOrBuild zu nutzen
-        tm = TransferManagerBuilder.standard()
-                .withS3Client(s3Service)
-                .withAlwaysCalculateMultipartMd5(true)
-                .build();
-        if (tm == null) {
-            throw new IOException("TransferManager initialization failed; tm is null");
-        }
-
-        this.initialized = true;
-        log.info("Ceph S3 AssetStore ready! Bucket: " + bucketName);
-    } catch (Exception e) {
-        this.initialized = false;
-        log.error("Cannot initialize Ceph S3 AssetStore!", e);
-        throw new IOException(e);
     }
-}
-
 
     @Override
     public String generateId() {
