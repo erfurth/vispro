@@ -8,4 +8,4 @@ back-end/test/dspace/solr/*/core.properties.lock
 back-end/test/dspace/solr/*/replication.properties
 
 # exclude config file which contains credentials
-back-end/test/dsapce/modules/assetstore.cfg
+back-end/test/dspace/config/modules/assetstore.cfg
