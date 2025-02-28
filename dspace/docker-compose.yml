@@ -149,7 +149,7 @@ services:
     extra_hosts:
       - "host.docker.internal:host-gateway"
 
-# volume definition
+
 volumes:
   assetstore:
   pgdata:
