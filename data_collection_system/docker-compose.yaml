@@ -44,6 +44,7 @@ services:
 
   influxdb:
     image: influxdb:2.7-alpine
+    #build: /influxdb
     ports:
       - "8086:8086"
     env_file:
@@ -52,7 +53,8 @@ services:
     volumes:
       - influxdb_data:/var/lib/influxdb2
       - influxdb_config:/etc/influxdb2
-    restart: always
+      - ./influxdb/init-buckets.sh:/docker-entrypoint-initdb.d/init-buckets.sh
+    #restart: always
 
 volumes:
   influxdb_data:

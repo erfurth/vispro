@@ -1,0 +1,28 @@
+{
+    "data_services": [
+        {
+            "name": "ultrasonic",
+            "input_protocol": "opcua",
+            "data_source": {
+                "host": "",
+                "port": 1234,
+                "reading_rate": 0.5
+            }
+        }
+    ],
+    "influxdb": {
+        "basic_config": {
+            "organisation": "private",
+            "init_name": "",
+            "init_password": ""
+        },
+        "additional_buckets": [
+            {
+                "name": "ultrasonic_pi",
+                "retention": "0"
+            }
+        ]
+    },
+    "mosquitto": {},
+    "telegraf": {}
+}
