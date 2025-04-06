@@ -1,0 +1,92 @@
+{
+    "general": {
+        "install_path": "./installed",
+        "start_port": 8000,
+        "directories": [
+            "bridge-microservice",
+            "services-config",
+            "mosquitto",
+            "telegraf",
+            "influxdb"
+        ]
+    },
+    "data_services": [
+        {
+            "name": "ultrasonic",
+            "input_protocol": "opcua",
+            "data_source": {
+                "user_name": "SourceUserName",
+                "password": "SourcePasswort",
+                "host": "data.source.host",
+                "port": 1234,
+                "security": {
+                    "policy": "source.policy",
+                    "mode": "source.mode"
+                },
+                "reading_rate": 0.5
+            },
+            "namespaces": [
+                {
+                    "name": "NamespaceName",
+                    "index": 2,
+                    "observed_nodes": [
+                        {
+                            "metric_name": "MetricName",
+                            "trivial_name": "TrivialName",
+                            "unit": "Unit",
+                            "node_id": "NodeID"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "mcp150",
+            "input_protocol": "opcua",
+            "data_source": {
+                "user_name": "SourceUserName",
+                "password": "SourcePasswort",
+                "host": "data.source.host",
+                "port": 1234,
+                "security": {
+                    "policy": "source.policy",
+                    "mode": "source.mode"
+                },
+                "reading_rate": 0.5
+            },
+            "namespaces": [
+                {
+                    "name": "NamespaceName",
+                    "index": 2,
+                    "observed_nodes": [
+                        {
+                            "metric_name": "MetricName",
+                            "trivial_name": "TrivialName",
+                            "unit": "Unit",
+                            "node_id": "NodeID"
+                        }
+                    ]
+                }
+            ]
+        }
+    ],
+    "influxdb": {
+        "user_name": "influxUserName",
+        "password": "InfluxPassword",
+        "host": "http://influxdb",
+        "port": 8086,
+        "organisation": "private",
+        "api_token": "ABC123",
+        "additional_buckets": [
+            {
+                "name": "ultrasonic_pi",
+                "retention": "0"
+            }
+        ]
+    },
+    "mosquitto": {
+        "host": "tcp://mosquitto",
+        "port": 1883
+    },
+    "telegraf": {}
+}

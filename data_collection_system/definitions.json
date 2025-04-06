@@ -7,7 +7,21 @@
                 "host": "",
                 "port": 1234,
                 "reading_rate": 0.5
-            }
+            },
+            "namespaces": [
+                {
+                    "name": "",
+                    "index": 2,
+                    "observed_nodes": [
+                        {
+                            "metric_name": "",
+                            "trivial_name": "",
+                            "unit": "",
+                            "node_id": ""
+                        }
+                    ]
+                }
+            ]
         }
     ],
     "influxdb": {
@@ -23,6 +37,9 @@
             }
         ]
     },
-    "mosquitto": {},
+    "mosquitto": {
+        "host": "tcp://mosquitto",
+        "port": 1883
+    },
     "telegraf": {}
 }

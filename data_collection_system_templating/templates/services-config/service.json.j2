@@ -1,0 +1,51 @@
+{
+    "service": {
+        "name": "{{source_name}}-{{source_input_protocol}}",
+        "protocols": {
+            "input": "{{source_input_protocol}}",
+            "output": "mqtt"
+        }
+    },
+    "data_source": {
+        "name": "{{source_name}}",
+        "oranisation": "{{influx_org}}",
+        "connection": {
+            "user_name": "{{source_user_name}}",
+            "password": "{{source_password}}",
+            "host": "{{source_host}}",
+            "port": {{source_port}},
+            "security": {
+                "policy": "{{source_security_policy}}",
+                "mode": "{{source_security_mode}}"
+            }
+        },
+        "reading_rate": {{source_reading_rate}}
+    },
+    "data_sink": {
+        "name": "mqtt-broker",
+        "organisation": "private",
+        "connection": {
+            "host": "mosquitto",
+            "port": 1883,
+            "keepalive": 60
+        }
+    },
+    "namespaces": [
+        {% for namespace in source_namespaces %}
+        {
+            "name": "{{namespace.name}}",
+            "index": {{namespace.index}},
+            "viewed_nodes": [
+                {% for node in namespace.observed_nodes %}
+                {
+                    "metric_name": "{{node.metric_name}}",
+                    "trivial_name": "{{node.trivial_name}}",
+                    "unit": "{{node.unit}}",
+                    "node_id": "{{node.node_id}}"
+                }{% if not loop.last %},{% endif %} 
+                {% endfor %}
+            ]
+        }{% if not loop.last %},{% endif %} 
+        {% endfor %}
+    ]
+}

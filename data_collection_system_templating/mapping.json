@@ -1,0 +1,22 @@
+{
+    "data_services": "data_services",
+    "base_port": "general/start_port",
+    "influx_host_address": "influxdb/host",
+    "influx_port": "influxdb/port",
+    "influx_user_name": "influxdb/user_name",
+    "influx_password": "influxdb/password",
+    "influx_api_token": "influxdb/api_token",
+    "influx_org": "influxdb/organisation",
+    "mosquitto_host_address": "mosquitto/host",
+    "mosquitto_port": "mosquitto/port",
+    "source_name": "name",
+    "source_input_protocol": "input_protocol",
+    "source_user_name": "data_source/user_name",
+    "source_password": "data_source/password",
+    "source_host": "data_source/host",
+    "source_port": "data_source/port",
+    "source_security_policy": "data_source/security/policy",
+    "source_security_mode": "data_source/security/mode",
+    "source_reading_rate": "data_source/reading_rate",
+    "source_namespaces": "namespaces"
+}

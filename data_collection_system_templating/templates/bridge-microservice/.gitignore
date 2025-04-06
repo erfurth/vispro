@@ -1,0 +1,8 @@
+# ignore pycache directory
+__pycache__/
+
+# ignore files for testing
+test*.*
+
+# ignoring environment files
+.env
