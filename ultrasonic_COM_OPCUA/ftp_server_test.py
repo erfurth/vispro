@@ -159,7 +159,7 @@ async def run_ftp_server():
     server = aioftp.Server(users=[user])
 
     # Starte den Server auf localhost:2121
-    await server.start("127.0.0.1", 21)
+    await server.start("127.0.0.1", 2121)
     print("FTP-Server läuft auf ftp://127.0.0.1:21 (Benutzer: test / Passwort: 1234)")
 
     # Lass den Server für immer laufen
@@ -167,20 +167,20 @@ async def run_ftp_server():
 
 
 async def start_up():
-    data_queue = asyncio.Queue()
+    # data_queue = asyncio.Queue()
 
     # run com client in a separate thread
-    asyncio.create_task(run_com_client(), name="COM-Client")
-    print("COM client started!")
+    # asyncio.create_task(run_com_client(), name="COM-Client")
+    # print("COM client started!")
 
     # run com server in a separate thread
-    asyncio.create_task(run_com_server(data_queue), name="COM-Server")
-    print("COM server started!")
+    # asyncio.create_task(run_com_server(data_queue), name="COM-Server")
+    # print("COM server started!")
 
     # run ftp server
     asyncio.create_task(run_ftp_server(), name="FTP-Server")
 
-    await run_opcua_server(data_queue)
+    # await run_opcua_server(data_queue)
 
 
 if __name__ == "__main__":

@@ -18,7 +18,7 @@ async def run_com_client():
 
     # configure machine
     machine.MachineID = "M1"
-    machine.MachineIP = "10.130.0.44"
+    machine.MachineIP = "10.130.2.39"
     machine.MachinePort = 3011
 
     # configure Host aka this machine
@@ -153,13 +153,11 @@ async def start_up():
     data_queue = asyncio.Queue()
 
     # run com client in a separate thread
-    asyncio.create_task(asyncio.to_thread(run_com_client), name="COM-Client")
+    asyncio.create_task(run_com_client(), name="COM-Client")
     print("COM client started!")
 
     # run com server in a separate thread
-    asyncio.create_task(
-        asyncio.to_thread(run_com_server, data_queue), name="COM-Server"
-    )
+    asyncio.create_task(run_com_server(data_queue), name="COM-Server")
     print("COM server started!")
 
     await run_opcua_server(data_queue)
