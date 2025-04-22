@@ -1,5 +1,4 @@
 import json
-import aioftp
 import pythoncom
 import win32com.client
 import asyncio
@@ -9,6 +8,10 @@ import com_ua_mapper as uam
 import ua_server_creation as usc
 from sinucom import Machine
 from sinucom import _IMachineEvents, defaultNamedNotOptArg
+
+from pyftpdlib.authorizers import DummyAuthorizer
+from pyftpdlib.handlers import FTPHandler
+from pyftpdlib.servers import FTPServer
 
 
 async def run_com_client():
@@ -147,38 +150,32 @@ async def run_opcua_server(data_queue):
             await asyncio.sleep(0.1)
 
 
-async def run_ftp_server():
-    # Konfiguriere den Benutzer (Username: "user", Passwort: "1234")
-    user = aioftp.User(
-        login="test",
-        home_path="/exchange",  # Root-Verzeichnis des Users (aktuelles Verzeichnis)
-        permissions=(aioftp.Permission("/", readable=True, writable=True),),
-        password="1234",
-    )
+def run_ftp_server():
+    authorizer = DummyAuthorizer()
+    authorizer.add_user("test", "1234", "/exchange", perm="elradfmwMT")
 
-    server = aioftp.Server(users=[user])
+    handler = FTPHandler
+    handler.authorizer = authorizer
+    handler.passive_ports = range(30000, 30010)
+    handler.masquerade_address = "10.70.16.106"
 
-    # Starte den Server auf localhost:2121
-    await server.start("127.0.0.1", 2121)
-    print("FTP-Server läuft auf ftp://127.0.0.1:21 (Benutzer: test / Passwort: 1234)")
-
-    # Lass den Server für immer laufen
-    await asyncio.Event().wait()
+    server = FTPServer(("0.0.0.0", 21), handler)
+    server.serve_forever()
 
 
 async def start_up():
-    # data_queue = asyncio.Queue()
+    data_queue = asyncio.Queue()
 
     # run com client in a separate thread
-    # asyncio.create_task(run_com_client(), name="COM-Client")
-    # print("COM client started!")
+    asyncio.create_task(run_com_client(), name="COM-Client")
+    print("COM client started!")
 
     # run com server in a separate thread
-    # asyncio.create_task(run_com_server(data_queue), name="COM-Server")
-    # print("COM server started!")
+    asyncio.create_task(run_com_server(data_queue), name="COM-Server")
+    print("COM server started!")
 
     # run ftp server
-    asyncio.create_task(run_ftp_server(), name="FTP-Server")
+    asyncio.create_task(asyncio.to_thread(run_ftp_server), name="FTP-Server")
 
     # await run_opcua_server(data_queue)
 
