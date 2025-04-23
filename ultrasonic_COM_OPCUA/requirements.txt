@@ -1,4 +1,4 @@
 asyncua==1.1.5
 pywin32==308
 aioftp==0.24.1
-pyftplib==2.0.1 
+pyftpdlib==2.0.1 
