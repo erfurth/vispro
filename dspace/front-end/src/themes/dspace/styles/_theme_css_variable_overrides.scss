@@ -3,11 +3,12 @@
 :root {
 
   @include media-breakpoint-up(md) {
-    --ds-header-logo-height: 40px;
+    --ds-header-logo-height: 60px;
     --ds-header-height: 80px;
   }
+
   @include media-breakpoint-down(sm) {
-    --ds-header-logo-height: 50px;
+    --ds-header-logo-height: 70px;
     --ds-header-height: 90px;
   }
 
@@ -25,4 +26,3 @@
   --ds-item-page-img-field-default-inline-height: 24px;
   --ds-item-page-img-field-ror-inline-height: var(--ds-item-page-img-field-default-inline-height);
 }
-
