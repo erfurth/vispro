@@ -30,14 +30,13 @@ RUN dpkg --add-architecture i386 && \
     apt install -y wget gnupg2 software-properties-common
 
 # 2. WineHQ GPG-Key & Paketquellen hinzufügen
-RUN mkdir -pm755 /etc/apt/keyrings && \
-    wget -O /etc/apt/keyrings/winehq-archive.key https://dl.winehq.org/wine-builds/winehq.key && \
-    wget -O /etc/apt/sources.list.d/winehq.sources https://dl.winehq.org/wine-builds/ubuntu/dists/jammy/winehq-jammy.sources
+RUN wget -O - https://dl.winehq.org/wine-builds/winehq.key | apt-key add -
+RUN  add-apt-repository 'deb https://dl.winehq.org/wine-builds/ubuntu/ jammy main'
 
 # 3. Wine 10 + GUI-Tools installieren
 RUN apt update && \
     apt install -y --install-recommends \
-    winehq-devel \
+    winehq-stable \
     x11-apps \
     x11vnc \
     xvfb \
