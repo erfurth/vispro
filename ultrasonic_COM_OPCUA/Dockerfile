@@ -24,18 +24,19 @@ FROM ubuntu:latest
 ENV DEBIAN_FRONTEND=noninteractive
 ENV DISPLAY=:0
 
-# Architekturen und Grundpakete installieren
+# 1. Architektur und Basispakete installieren
 RUN dpkg --add-architecture i386 && \
-    apt-get update && apt-get install -y \
-    wget gnupg2 software-properties-common
+    apt update && \
+    apt install -y wget gnupg2 software-properties-common
 
-# WineHQ Key & Repo hinzufügen
+# 2. WineHQ GPG-Key & Paketquellen hinzufügen
 RUN mkdir -pm755 /etc/apt/keyrings && \
     wget -O /etc/apt/keyrings/winehq-archive.key https://dl.winehq.org/wine-builds/winehq.key && \
-    wget -NP /etc/apt/sources.list.d/ https://dl.winehq.org/wine-builds/ubuntu/dists/jammy/winehq-jammy.sources
+    wget -O /etc/apt/sources.list.d/winehq.sources https://dl.winehq.org/wine-builds/ubuntu/dists/jammy/winehq-jammy.sources
 
-# Wine 10 + GUI-Tools installieren
-RUN apt-get update && apt-get install -y \
+# 3. Wine 10 + GUI-Tools installieren
+RUN apt update && \
+    apt install -y --install-recommends \
     winehq-devel \
     x11-apps \
     x11vnc \
