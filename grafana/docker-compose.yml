@@ -1,0 +1,11 @@
+services:
+  grafana:
+    image: grafana/grafana-enterprise
+    container_name: grafana
+    restart: unless-stopped
+    ports:
+      - '3000:3000'
+    user: '0'
+    volumes:
+      - './grafana/var:/var/lib/grafana'
+      - './grafana/etc:/etc/grafana'
