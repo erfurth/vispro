@@ -8,6 +8,6 @@ RUN pip install --no-cache-dir --upgrade -r /bridge-microservice/requirements.tx
 
 COPY ./app /bridge-microservice/app
 
-COPY .env .
+#COPY .env .
 
 CMD [ "fastapi", "run", "app/bridge.py", "--port", "80" ]

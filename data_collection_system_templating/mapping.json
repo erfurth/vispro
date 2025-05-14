@@ -18,5 +18,6 @@
     "source_security_policy": "data_source/security/policy",
     "source_security_mode": "data_source/security/mode",
     "source_reading_rate": "data_source/reading_rate",
-    "source_namespaces": "namespaces"
+    "source_namespaces": "namespaces",
+    "additional_topics": "telegraf/external_topics"
 }

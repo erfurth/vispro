@@ -88,5 +88,16 @@
         "host": "tcp://mosquitto",
         "port": 1883
     },
-    "telegraf": {}
+    "telegraf": {
+        "external_topics": [
+            {
+                "name": "raspi-ultrasonic",
+                "input_protocol": "mqtt"
+            },
+            {
+                "name": "raspi-mcp",
+                "input_protocol": "mqtt"
+            }
+        ]
+    }
 }

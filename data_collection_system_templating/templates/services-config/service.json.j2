@@ -31,21 +31,21 @@
         }
     },
     "namespaces": [
-        {% for namespace in source_namespaces %}
+        {%- for namespace in source_namespaces %}
         {
             "name": "{{namespace.name}}",
             "index": {{namespace.index}},
             "viewed_nodes": [
-                {% for node in namespace.observed_nodes %}
+                {%- for node in namespace.observed_nodes %}
                 {
                     "metric_name": "{{node.metric_name}}",
                     "trivial_name": "{{node.trivial_name}}",
                     "unit": "{{node.unit}}",
                     "node_id": "{{node.node_id}}"
                 }{% if not loop.last %},{% endif %} 
-                {% endfor %}
+                {%- endfor %}
             ]
         }{% if not loop.last %},{% endif %} 
-        {% endfor %}
+        {%- endfor %}
     ]
 }

@@ -31,21 +31,17 @@
         }
     },
     "namespaces": [
-        
         {
             "name": "NamespaceName",
             "index": 2,
             "viewed_nodes": [
-                
                 {
                     "metric_name": "MetricName",
                     "trivial_name": "TrivialName",
                     "unit": "Unit",
                     "node_id": "NodeID"
-                } 
-                
+                }
             ]
-        } 
-        
+        }
     ]
 }

@@ -1,5 +1,4 @@
 services:
-
     bridge_ultrasonic:
         build: ./bridge-microservice
         ports:
@@ -7,10 +6,9 @@ services:
         environment:
             - PYTHONUNBUFFERED=1
         volumes:
-            - ./services-config/ultrasonic.json:/bridge-microservice/app/conf/service.json
+            - ./services-config/service_ultrasonic.json:/bridge-microservice/app/conf/service.json
         extra_hosts:
             - "host.docker.internal:host-gateway"
-
     bridge_mcp150:
         build: ./bridge-microservice
         ports:
@@ -18,24 +16,20 @@ services:
         environment:
             - PYTHONUNBUFFERED=1
         volumes:
-            - ./services-config/mcp150.json:/bridge-microservice/app/conf/service.json
+            - ./services-config/service_mcp150.json:/bridge-microservice/app/conf/service.json
         extra_hosts:
             - "host.docker.internal:host-gateway"
-
-
     mosquitto:
         image: eclipse-mosquitto:2.0.18
         volumes:
             - ./mosquitto/mosquitto.conf:/mosquitto/config/mosquitto.conf
         ports:
             - "1883:1883"
-
     telegraf:
         image: telegraf:1.31.2-alpine
         volumes:
             - ./telegraf/telegraf.conf:/etc/telegraf/telegraf.conf
         restart: always
-
     influxdb:
         image: influxdb:2.7-alpine
         ports:
@@ -50,5 +44,5 @@ services:
         restart: always
 
 volumes:
-influxdb_data:
-influxdb_config:
+    influxdb_data:
+    influxdb_config:

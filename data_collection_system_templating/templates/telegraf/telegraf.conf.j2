@@ -14,9 +14,12 @@
 servers = ["{{mosquitto_host_address}}:{{mosquitto_port}}"]
 # topics to listen to 
 topics = [
-  {% for service in data_services %}
-  "{{service.name}}-{{service.input_protocol}}"{% if not loop.last %},{% endif %}
-  {% endfor %}
+  {%- for service in data_services %}
+  "{{service.name}}-{{service.input_protocol}}"{% if not loop.last or additional_topics %},{% endif %}
+  {%- endfor %}
+  {%- for topic in additional_topics %}
+  "{{topic.name}}-{{topic.input_protocol}}"{% if not loop.last %},{% endif %}
+  {%- endfor %}
 ]
 # Content format of the MQTT-Messages
 data_format = "json_v2"

@@ -7,8 +7,12 @@ sleep 60
 echo "InfluxDB is ready. Creating additional buckets..."
 export INFLUX_TOKEN={{influx_api_token}}
 
-{% for bucket in data_services %}
+{%- for bucket in data_services %}
 influx bucket create --org {{influx_org}} --name {{bucket.name}}-{{bucket.input_protocol}} --retention 0
-{% endfor %}
+{%- endfor %}
+{%- for bucket in additional_topics %}
+influx bucket create --org {{influx_org}} --name {{bucket.name}}-{{bucket.input_protocol}} --retention 0
+{%- endfor %}
+
 
 echo "All buckets created successfully."
