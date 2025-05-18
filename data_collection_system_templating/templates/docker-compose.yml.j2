@@ -34,6 +34,21 @@ services:
             - influxdb_config:/etc/influxdb2
             - ./influxdb/init-buckets.sh:/docker-entrypoint-initdb.d/init-buckets.sh
         restart: always
+    grafana:
+        image: grafana/grafana-enterprise
+        container_name: grafana
+        ports:
+            - '3000:3000'
+        user: '0'
+        environment:
+            - GF_INSTALL_PLUGINS={%- for plugin in grafana_plugins %} {{plugin}} {%- if not loop.last %},{%- endif %} {%- endfor %}
+        volumes:
+            - ./grafana/provisioning:/etc/grafana/provisioning
+            - ./grafana/dashboards:/var/lib/grafana/dashboards
+        #- './grafana/var:/var/lib/grafana'
+        #- './grafana/etc:/etc/grafana'
+        restart: unless-stopped
+
 
 volumes:
     influxdb_data:

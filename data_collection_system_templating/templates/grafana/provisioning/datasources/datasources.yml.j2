@@ -1,0 +1,17 @@
+apiVersion: 1
+
+datasources:
+  - name: influxdb-data-pipeline
+    type: influxdb
+    access: proxy
+    url: http://host.docker.internal:{{influx_port}}
+    user: ""
+    database: ""
+    basicAuth: false
+    secureJsonData:
+      token: "{{influx_api_token}}"
+    jsonData:
+      httpMode: POST
+      version: Flux
+      organization: "{{influx_org}}"
+      defaultBucket: "{{influx_init_bucket}}"

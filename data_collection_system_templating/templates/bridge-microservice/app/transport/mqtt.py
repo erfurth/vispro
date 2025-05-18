@@ -50,7 +50,7 @@ async def create_and_connect_mqtt_client() -> aiomqtt.Client:
 async def post_data_mqtt(mqtt_client, topic: str, data_to_post: list):
     try:
         await mqtt_client.publish(
-            topic + "/data", simplejson.dumps(data_to_post, ignore_nan=True)
+            topic, simplejson.dumps(data_to_post, ignore_nan=True)
         )
     except MqttCodeError as e:
         print("Connection to the MQTT broker lost!")

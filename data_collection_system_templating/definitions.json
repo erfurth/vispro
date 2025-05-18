@@ -71,18 +71,13 @@
         }
     ],
     "influxdb": {
-        "user_name": "influxUserName",
-        "password": "InfluxPassword",
+        "user_name": "admin",
+        "password": "admin1234",
         "host": "http://influxdb",
         "port": 8086,
         "organisation": "private",
         "api_token": "ABC123",
-        "additional_buckets": [
-            {
-                "name": "ultrasonic_pi",
-                "retention": "0"
-            }
-        ]
+        "initial_bucket": "InitBucket"
     },
     "mosquitto": {
         "host": "tcp://mosquitto",
@@ -98,6 +93,11 @@
                 "name": "raspi-mcp",
                 "input_protocol": "mqtt"
             }
+        ]
+    },
+    "grafana": {
+        "install_plugins": [
+            "volkovlabs-form-panel"
         ]
     }
 }

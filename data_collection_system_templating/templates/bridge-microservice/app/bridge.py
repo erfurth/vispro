@@ -10,6 +10,7 @@ from contextlib import asynccontextmanager
 from typing import Annotated
 
 from fastapi import FastAPI, Depends
+from fastapi.middleware.cors import CORSMiddleware
 
 from asyncua import Client
 
@@ -64,6 +65,15 @@ async def lifespan(app: FastAPI):
 
 # creating fast api application with the defined lifespan
 app = FastAPI(lifespan=lifespan)
+
+# add CORS-Middleware for cross site requests (TESTING)
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 
 ###############################################################
@@ -281,3 +291,26 @@ async def stop_service():
         return {"status": "Service stopped."}
 
     return {"status": "Service is already stopped."}
+
+
+@app.put("/toggle")
+async def toggle_service(service_rw: Annotated[ServiceReadWrite, Depends()]):
+    """Route toggles if service is running or not running."""
+
+    global service_state
+    global opcua_client
+    global mqtt_client
+
+    if service_state["running"]:
+        service_state["running"] = False
+    elif not service_state["running"] and opcua_client:
+        service_config = service_rw.load_service_data()
+
+        service_state["running"] = True
+        asyncio.create_task(
+            helper.process_data(
+                service_config, service_state, opcua_client, mqtt_client
+            )
+        )
+
+    return {"service_running": service_state["running"]}
