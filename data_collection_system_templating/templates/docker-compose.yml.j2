@@ -47,6 +47,8 @@ services:
             - ./grafana/dashboards:/var/lib/grafana/dashboards
         #- './grafana/var:/var/lib/grafana'
         #- './grafana/etc:/etc/grafana'
+        extra_hosts:
+            - "host.docker.internal:host-gateway"
         restart: unless-stopped
 
 
