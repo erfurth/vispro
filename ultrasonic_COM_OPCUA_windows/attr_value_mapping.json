@@ -1,0 +1,70 @@
+{
+    "Set01": [
+        "progName",
+        "acVactw",
+        "actSpeed",
+        "chanStatus",
+        "progStatus",
+        "opMode",
+        "speedOvr",
+        "feedRateIpoOvr",
+        "actToolIdent"
+    ],
+    "Set02": [
+        "actToolBasePos_X",
+        "actToolBasePos_Y",
+        "actToolBasePos_Z",
+        "actToolBasePos_A",
+        "actToolBasePos_B",
+        "actBlockI",
+        "blockNoStr",
+        "seekOffset"
+    ],
+    "Set03": [
+        "vaLoad_X",
+        "vaLoad_Y",
+        "vaLoad_Z",
+        "vaLoad_A",
+        "vaLoad_B",
+        "driveLoad",
+        "acConstCutSpeed"
+    ],
+    "Set04": [
+        "aaCurr_X",
+        "aaCurr_Y",
+        "aaCurr_Z",
+        "aaCurr_A",
+        "aaCurr_B",
+        "actLineNumber"
+    ],
+    "Set05": [
+        "actToolBasePos_X",
+        "actToolBasePos_Y",
+        "actToolBasePos_Z",
+        "actToolBasePos_A",
+        "actToolBasePos_B"
+    ],
+    "Set06": [
+        "acSDir",
+        "aaAcc_X",
+        "aaAcc_Y",
+        "aaAcc_Z"
+    ],
+    "Set07": [
+        "acSDir",
+        "turnState",
+        "cmdConstCutSpeed"
+    ],
+    "Set08": [
+        "vaDistTorque_X",
+        "vaDistTorque_Y",
+        "vaDistTorque_Z",
+        "vaDistTorque_A",
+        "vaDistTorque_B",
+        "progNameWithPath"
+    ],
+    "Set09":[
+        "Unknown1",
+        "Unknown2"
+    ]
+}
