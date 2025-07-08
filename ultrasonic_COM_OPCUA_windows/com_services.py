@@ -1,18 +1,12 @@
-import time
 import json
 import pythoncom
 import win32com.client
 import asyncio
-from asyncua import Server
-from asyncua.ua import DataValue, Variant
-
 
 import com_ua_mapper as uam
-import ua_server_creation as usc
+
 from sinucom import Machine
 from sinucom import _IMachineEvents, defaultNamedNotOptArg
-
-from datetime import datetime, timedelta
 
 
 async def run_com_client():
@@ -82,12 +76,12 @@ class EventListener(_IMachineEvents):
         data_item["msg_id"] = OrderNum
 
         # put data into the data queue
-        self.data_queue.put_nowait(data_item)
+        self.data_queue.put(data_item)
 
 
 async def run_com_server(data_queue):
     pythoncom.CoInitialize()
-    # regiter machine object
+    # register machine object
     machine = win32com.client.Dispatch("Sincom.Machine.1")
 
     # configure machine
@@ -114,77 +108,3 @@ async def run_com_server(data_queue):
     while True:
         pythoncom.PumpWaitingMessages()
         await asyncio.sleep(0.01)
-
-
-async def run_opcua_server(data_queue):
-    server = Server()
-
-    server_nodes = await usc.initialize_opcua_server(
-        server,
-        "http://examples.freeopcua.github.io",
-        "opc.tcp://0.0.0.0:4841/freeopcua/server/",
-        "server_init.json",
-    )
-
-    async with server:
-        while True:
-            if not data_queue.empty():
-                data_item = await data_queue.get()
-                msg_id = data_item.pop("msg_id")
-                print(f"OPCUA-msg-id: {msg_id}")
-                print(f"OPCUA: {data_item}")
-
-                for parameter in data_item:
-                    node_type = await server_nodes[
-                        parameter
-                    ].read_data_type_as_variant_type()
-
-                    data_item[parameter] = uam.correct_type(
-                        node_type, data_item[parameter]
-                    )
-                    print(data_item[parameter])
-
-                    utc_time = datetime.utcnow()
-                    local_time = utc_time + timedelta(hours=2)
-
-                    value = DataValue(
-                        Variant(data_item[parameter], node_type),
-                        SourceTimestamp = local_time,
-                        ServerTimestamp = local_time
-                    )
-
-                    await server_nodes[parameter].write_value(value)
-
-            for node in server_nodes.values():
-                old_value = (await node.read_data_value()).Value.Value
-
-                utc_time = datetime.utcnow()
-                local_time = utc_time + timedelta(hours=2)
-
-                value = DataValue(
-                    Variant(old_value),
-                    SourceTimestamp = local_time,
-                    ServerTimestamp = local_time
-                )
-
-                await node.write_value(value)
-
-            await asyncio.sleep(0.1)
-
-
-async def start_up():
-    data_queue = asyncio.Queue()
-
-    # run com client in a separate thread
-    asyncio.create_task(run_com_client(), name="COM-Client")
-    print("COM client started!")
-
-    # run com server in a separate thread
-    asyncio.create_task(run_com_server(data_queue), name="COM-Server")
-    print("COM server started!")
-
-    await run_opcua_server(data_queue)
-
-
-if __name__ == "__main__":
-    asyncio.run(start_up(), debug=True)
