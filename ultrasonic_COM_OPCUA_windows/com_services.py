@@ -16,7 +16,7 @@ async def run_com_client():
 
     # configure machine
     machine.MachineID = "M1"
-    machine.MachineIP = "10.130.2.39"
+    machine.MachineIP = "10.130.2.34"
     machine.MachinePort = 3011
 
     # configure Host aka this machine
@@ -29,8 +29,6 @@ async def run_com_client():
 
     # define varsets
     var_sets = [f"Set{i:02}" for i in range(1, 9)]
-    # for i in range(1, 11):
-    #     var_sets.append(f"Set{i:02}")
 
     while True:
 
@@ -41,7 +39,7 @@ async def run_com_client():
 
             print(f"status: {result} | client_message_id: {message_id}")
 
-            await asyncio.sleep(0.01)
+            await asyncio.sleep(0.1)
 
 
 class EventListener(_IMachineEvents):
@@ -86,7 +84,7 @@ async def run_com_server(data_queue):
 
     # configure machine
     machine.MachineID = "M1"
-    machine.MachineIP = "10.130.0.44"
+    machine.MachineIP = "10.130.2.34"
     machine.MachinePort = 3011
 
     # configure Host aka this machine

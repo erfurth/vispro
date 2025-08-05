@@ -37,10 +37,12 @@ async def run_opcua_server(data_queue):
                     data_item[parameter] = uam.correct_type(
                         node_type, data_item[parameter]
                     )
-                    print(data_item[parameter])
+                    # print(data_item[parameter])
 
                     utc_time = datetime.utcnow()
                     local_time = utc_time + timedelta(hours=2)
+
+                    print(f"ZEIT {local_time}")
 
                     value = DataValue(
                         Variant(data_item[parameter], node_type),
@@ -64,4 +66,4 @@ async def run_opcua_server(data_queue):
 
                 await node.write_value(value)
 
-            await asyncio.sleep(0.1)
+            await asyncio.sleep(0.01)

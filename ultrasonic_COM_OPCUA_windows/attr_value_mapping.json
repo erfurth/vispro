@@ -53,7 +53,8 @@
     "Set07": [
         "acSDir",
         "turnState",
-        "cmdConstCutSpeed"
+        "cmdConstCutSpeed",
+        "cycleTime"
     ],
     "Set08": [
         "vaDistTorque_X",
@@ -63,7 +64,7 @@
         "vaDistTorque_B",
         "progNameWithPath"
     ],
-    "Set09":[
+    "Set09": [
         "Unknown1",
         "Unknown2"
     ]

@@ -61,6 +61,11 @@
                 "type": "variable",
                 "value": 0.0,
                 "source": "seekOffset"
+            },
+            "programm_time": {
+                "type": "variable",
+                "value": 0.0,
+                "source": "cycleTime"
             }
         }
     },
