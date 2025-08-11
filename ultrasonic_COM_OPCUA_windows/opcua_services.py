@@ -1,5 +1,4 @@
 import asyncio
-import concurrent.futures
 
 import ua_server_creation as usc
 import com_ua_mapper as uam

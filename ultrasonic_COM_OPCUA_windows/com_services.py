@@ -42,6 +42,39 @@ async def run_com_client():
             await asyncio.sleep(0.1)
 
 
+async def run_com_client_ftp_test():
+    pythoncom.CoInitialize()
+    # register machine object
+    machine = Machine()
+
+    # configure machine
+    machine.MachineID = "M1"
+    machine.MachineIP = "10.130.2.34"
+    machine.MachinePort = 3011
+
+    # configure Host aka this machine
+    machine.HostID = "H1"
+    machine.HostPort = 3010
+    machine.HostEnabled = True
+
+    # set counter for message ids
+    message_id = 0
+
+    FILE_ON_SINUMERIK = "\WKS.DIR\KERAMIKDRUCK.WPD\AL203_AE5_VERSUCHSPLAN.MPF"
+    FILE_ON_FLR = "/exchange/put/test.mpf"
+
+    print("Filepaths set")
+
+    while True:
+        print("Start file loading.")
+        result = await asyncio.to_thread(
+            machine.T_DATA_M, message_id, 1, FILE_ON_SINUMERIK, FILE_ON_FLR
+        )
+
+        print(f"status: {result} | client_message_id: {message_id}")
+        await asyncio.sleep(60)
+
+
 class EventListener(_IMachineEvents):
     def __init__(self, oobj=None) -> None:
         try:
