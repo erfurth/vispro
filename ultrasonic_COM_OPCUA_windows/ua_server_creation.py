@@ -1,21 +1,21 @@
 import json
+from typing import Union
 from asyncua import Server
 from asyncua.ua.uatypes import NodeId
-import asyncio
 
 
 async def parse_server_definition(
-    idx, current_node, definition: dict, mapping: dict, path: str=""
+    idx, current_node, definition: dict, mapping: dict, path: str = ""
 ) -> None:
     # pass through all entries of the current part of the server definition
     for entry in definition:
         # case a "variable" is defined
         if definition[entry]["type"] == "variable":
-            
-            # build variable path string and build NodeId Object from it 
+
+            # build variable path string and build NodeId Object from it
             var_path = path + entry
             node_id = NodeId(var_path, idx)
-            
+
             # add variable and default value to the server
             tmp_var = await current_node.add_variable(
                 node_id, entry, definition[entry]["value"]
@@ -27,7 +27,7 @@ async def parse_server_definition(
             # build current path and create NodeId from it
             sub_path = path + entry
             node_id = NodeId(sub_path, idx)
-            
+
             # add directory to the server
             tmp_dir = await current_node.add_folder(node_id, entry)
 
@@ -41,8 +41,11 @@ async def parse_server_definition(
 
 
 async def initialize_opcua_server(
-    server: Server, ns_uri: str, end_point: str, config_path: str = None
+    server: Server, ns_uri: str, end_point: str, config_path: Union[str, None] = None
 ) -> dict:
+
+    # create default empty server definition
+    server_definition = {}
 
     # load server definition from file
     if config_path:
@@ -63,24 +66,3 @@ async def initialize_opcua_server(
     await parse_server_definition(idx, server.nodes.objects, server_definition, mapping)
 
     return mapping
-
-
-async def run_opcua_server():
-    server = Server()
-
-    mapping = await initialize_opcua_server(
-        server,
-        "http://examples.freeopcua.github.io",
-        "opc.tcp://127.0.0.1:4840/freeopcua/server/",
-        "server_init.json",
-    )
-
-    print(mapping)
-
-    async with server:
-        while True:
-            await asyncio.sleep(1)
-
-
-if __name__ == "__main__":
-    asyncio.run(run_opcua_server(), debug=True)

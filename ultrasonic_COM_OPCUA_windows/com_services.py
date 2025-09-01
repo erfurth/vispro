@@ -8,8 +8,10 @@ import com_ua_mapper as uam
 from sinucom import Machine
 from sinucom import _IMachineEvents, defaultNamedNotOptArg
 
+from messages import Message
 
-async def run_com_client():
+
+async def run_com_client(upstream_queue):
     pythoncom.CoInitialize()
     # register machine object
     machine = Machine()
@@ -23,6 +25,8 @@ async def run_com_client():
     machine.HostID = "H1"
     machine.HostPort = 3010
     machine.HostEnabled = True
+
+    loop = asyncio.get_running_loop()
 
     # set counter for message ids
     message_id = 0
@@ -34,7 +38,15 @@ async def run_com_client():
 
         for var_set in var_sets:
             message_id = message_id % (2**32)
-            result = machine.T_VAR_M(message_id, 0, var_set, "")
+
+            if upstream_queue.empty():
+                result = machine.T_VAR_M(message_id, 0, var_set, "")
+            else:
+                path_item = await loop.run_in_executor(None, upstream_queue.get)
+                result = machine.T_DATA_M(
+                    message_id, 1, path_item.payload["program_path"]
+                )
+
             message_id += 1
 
             print(f"status: {result} | client_message_id: {message_id}")
@@ -42,37 +54,17 @@ async def run_com_client():
             await asyncio.sleep(0.1)
 
 
-async def run_com_client_ftp_test():
-    pythoncom.CoInitialize()
-    # register machine object
-    machine = Machine()
+class StatusStateMachine:
+    def __init__(self) -> None:
+        self.old_status = None
 
-    # configure machine
-    machine.MachineID = "M1"
-    machine.MachineIP = "10.130.2.34"
-    machine.MachinePort = 3011
+    def check_program_start(self, new_status: int) -> bool:
+        if self.old_status in [4, 5] and new_status == 3:
+            self.old_status = new_status
+            return True
 
-    # configure Host aka this machine
-    machine.HostID = "H1"
-    machine.HostPort = 3010
-    machine.HostEnabled = True
-
-    # set counter for message ids
-    message_id = 0
-
-    FILE_ON_SINUMERIK = "\WKS.DIR\KERAMIKDRUCK.WPD\AL203_AE5_VERSUCHSPLAN.MPF"
-    FILE_ON_FLR = "/exchange/put/test.mpf"
-
-    print("Filepaths set")
-
-    while True:
-        print("Start file loading.")
-        result = await asyncio.to_thread(
-            machine.T_DATA_M, message_id, 1, FILE_ON_SINUMERIK, FILE_ON_FLR
-        )
-
-        print(f"status: {result} | client_message_id: {message_id}")
-        await asyncio.sleep(60)
+        self.old_status = new_status
+        return False
 
 
 class EventListener(_IMachineEvents):
@@ -83,8 +75,13 @@ class EventListener(_IMachineEvents):
         except Exception as e:
             print("Error!")
 
-    def set_data_queue(self, data_queue: asyncio.Queue):
-        self.data_queue = data_queue
+        self.status_checker = StatusStateMachine()
+
+    def set_data_downstream_queue(self, data_queue):
+        self.downstream_data_queue = data_queue
+
+    def set_data_upstream_queue(self, data_queue):
+        self.upstream_data_queue = data_queue
 
     def set_data_mapping(self, mapping: dict):
         self.mapping = mapping
@@ -101,16 +98,34 @@ class EventListener(_IMachineEvents):
         print(f"server_message_id: {OrderNum}")
 
         # convert data in usable dictionary format
-        data_item = uam.convert_com_to_ua(VarSet, VarData, self.mapping)
+        payload = uam.convert_com_to_ua(VarSet, VarData, self.mapping)
 
-        # add message id to the data item
-        data_item["msg_id"] = OrderNum
+        data_item = Message(OrderNum, "data", payload)
+
+        if "progStatus" in payload:
+            if self.status_checker.check_program_start(payload["progStatus"]):
+                path_item = Message(
+                    OrderNum, "path", {"program_path": payload["progName"]}
+                )
+                self.upstream_data_queue.put(path_item)
 
         # put data into the data queue
-        self.data_queue.put(data_item)
+        self.downstream_data_queue.put(data_item)
+
+    def OnRxDATAxH(
+        self,
+        OrderNum=defaultNamedNotOptArg,
+        SFkt=defaultNamedNotOptArg,
+        Name1=defaultNamedNotOptArg,
+        Name2=defaultNamedNotOptArg,
+        DateVal=defaultNamedNotOptArg,
+        LastFile=defaultNamedNotOptArg,
+    ):
+        path_item = Message(OrderNum, "path", {"program_path": Name2})
+        self.downstream_data_queue.put(path_item)
 
 
-async def run_com_server(data_queue):
+async def run_com_server(downsteam_data_queue, upstream_data_queue):
     pythoncom.CoInitialize()
     # register machine object
     machine = win32com.client.Dispatch("Sincom.Machine.1")
@@ -130,8 +145,10 @@ async def run_com_server(data_queue):
         mapping = json.load(f)
 
     event_listener = EventListener(machine)
-    # pass the data queue to the event_listener
-    event_listener.set_data_queue(data_queue)
+    # pass the downstream data queue to the event_listener
+    event_listener.set_data_downstream_queue(downsteam_data_queue)
+    # pass the upstream data queue to the event listener
+    event_listener.set_data_upstream_queue(upstream_data_queue)
     # pass the parameter mapping to the event listener
     event_listener.set_data_mapping(mapping)
 

@@ -69,6 +69,56 @@
             }
         }
     },
+    "process_meta": {
+        "type": "directory",
+        "value": {
+            "material_category": {
+                "type": "variable",
+                "value": "None",
+                "source": "material_category"
+            },
+            "material": {
+                "type": "variable",
+                "value": "None",
+                "source": "material"
+            },
+            "processor": {
+                "type": "variable",
+                "value": "None",
+                "source": "processor"
+            },
+            "client": {
+                "type": "variable",
+                "value": "None",
+                "source": "client"
+            },
+            "project": {
+                "type": "variable",
+                "value": "None",
+                "source": "project"
+            },
+            "comment": {
+                "type": "variable",
+                "value": "None",
+                "source": "comment"
+            },
+            "intervention_type": {
+                "type": "variable",
+                "value": "None",
+                "source": "intervention_type"
+            },
+            "engagement_geometry": {
+                "type": "variable",
+                "value": "None",
+                "source": "engagement_geometry"
+            },
+            "ultrasonic": {
+                "type": "variable",
+                "value": "None",
+                "source": "ultrasonic"
+            }
+        }
+    },
     "tooling": {
         "type": "directory",
         "value": {
