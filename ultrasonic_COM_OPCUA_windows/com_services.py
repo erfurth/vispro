@@ -44,7 +44,7 @@ async def run_com_client(upstream_queue):
             else:
                 path_item = await loop.run_in_executor(None, upstream_queue.get)
                 result = machine.T_DATA_M(
-                    message_id, 1, path_item.payload["program_path"]
+                    message_id, 1, path_item.payload["program_path"], ""
                 )
 
             message_id += 1
@@ -59,12 +59,24 @@ class StatusStateMachine:
         self.old_status = None
 
     def check_program_start(self, new_status: int) -> bool:
-        if self.old_status in [4, 5] and new_status == 3:
+        if self.old_status in [4, 5, None] and new_status == 3:
             self.old_status = new_status
             return True
 
         self.old_status = new_status
         return False
+
+
+def format_nc_prog_path(prog_path: str) -> str:
+    return "\\".join(
+        [
+            e[3:]
+            .replace("_DIR", ".DIR")
+            .replace("_WPD", ".WPD")
+            .replace("_MPF", ".MPF")
+            for e in prog_path.split("/")
+        ]
+    )
 
 
 class EventListener(_IMachineEvents):
@@ -105,7 +117,9 @@ class EventListener(_IMachineEvents):
         if "progStatus" in payload:
             if self.status_checker.check_program_start(payload["progStatus"]):
                 path_item = Message(
-                    OrderNum, "path", {"program_path": payload["progName"]}
+                    OrderNum,
+                    "path",
+                    {"program_path": format_nc_prog_path(payload["workPandProgName"])},
                 )
                 self.upstream_data_queue.put(path_item)
 
@@ -121,7 +135,9 @@ class EventListener(_IMachineEvents):
         DateVal=defaultNamedNotOptArg,
         LastFile=defaultNamedNotOptArg,
     ):
-        path_item = Message(OrderNum, "path", {"program_path": Name2})
+        path_item = Message(
+            OrderNum, "path", {"program_path": Name2.replace("\\", "/")}
+        )
         self.downstream_data_queue.put(path_item)
 
 
@@ -155,4 +171,4 @@ async def run_com_server(downsteam_data_queue, upstream_data_queue):
     # start server listening loop
     while True:
         pythoncom.PumpWaitingMessages()
-        await asyncio.sleep(0.01)
+        await asyncio.sleep(0.1)

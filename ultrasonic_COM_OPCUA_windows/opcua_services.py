@@ -38,9 +38,9 @@ async def run_opcua_server(data_queue):
                 msg = await loop.run_in_executor(None, data_queue.get)
 
                 # check if data ist transmitted by the message
-                if msg.msq_type == "data":
+                if msg.msg_type == "data":
 
-                    print(f"OPCUA-msg-id: {msg.msq_id}")
+                    print(f"OPCUA-msg-id: {msg.msg_id}")
                     print(f"OPCUA: {msg.payload}")
 
                     # traverse parameters addressed in message
@@ -77,7 +77,9 @@ async def run_opcua_server(data_queue):
                     nc_program_path = msg.payload["program_path"]
 
                     # load current nc-program data from file
-                    nc_meta_data = get_meta_data_from_nc_prog(nc_program_path)
+                    nc_meta_data = get_meta_data_from_nc_prog(
+                        "./exchange" + nc_program_path
+                    )
 
                     for parameter in nc_meta_data:
 

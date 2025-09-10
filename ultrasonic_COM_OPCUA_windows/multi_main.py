@@ -10,7 +10,6 @@ def start_com_services(downstream_queue, upstream_queue):
 
     async def run_services():
         asyncio.create_task(run_com_client(upstream_queue), name="COM-Client")
-        # asyncio.create_task(run_com_client_ftp_test(), name="COM-Client-ftp_test")
         asyncio.create_task(
             run_com_server(downstream_queue, upstream_queue), name="COM-Server"
         )

@@ -1,5 +1,5 @@
 def get_meta_data_from_nc_prog(path: str) -> dict[str, str]:
-    with open("./exchange/put/ALUOXID_AE5.MPF") as f:
+    with open(path) as f:
         nc_prog = f.readlines()
 
     attr_map = {
@@ -20,7 +20,7 @@ def get_meta_data_from_nc_prog(path: str) -> dict[str, str]:
         "processor": "",
         "client": "",
         "project": "",
-        "commment": "",
+        "comment": "",
         "intervention_type": "",
         "engagement_geometry": "",
         "ultrasonic": "",

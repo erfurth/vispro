@@ -8,7 +8,8 @@
         "opMode",
         "speedOvr",
         "feedRateIpoOvr",
-        "actToolIdent"
+        "actToolIdent",
+        "workPandProgName"
     ],
     "Set02": [
         "actToolBasePos_X",
@@ -61,8 +62,7 @@
         "vaDistTorque_Y",
         "vaDistTorque_Z",
         "vaDistTorque_A",
-        "vaDistTorque_B",
-        "progNameWithPath"
+        "vaDistTorque_B"
     ],
     "Set09": [
         "Unknown1",
