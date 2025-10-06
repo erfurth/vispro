@@ -7,7 +7,9 @@
             "services-config",
             "mosquitto",
             "telegraf",
-            "influxdb"
+            "influxdb",
+            "mongodb",
+            "mongo-client"
         ]
     },
     "data_services": [
@@ -78,6 +80,11 @@
         "organisation": "private",
         "api_token": "ABC123",
         "initial_bucket": "InitBucket"
+    },
+    "mongodb": {
+        "user_name": "admin",
+        "password": "password",
+        "port": 27017
     },
     "mosquitto": {
         "host": "tcp://mosquitto",

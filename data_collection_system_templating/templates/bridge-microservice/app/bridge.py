@@ -20,6 +20,7 @@ from .models import (
     DataSink,
     DeleteNodeRequest,
     WriteNodeRequest,
+    CollectingRequest,
 )
 
 
@@ -30,7 +31,7 @@ service_state = {"running": False}
 data_config = None
 
 # opcua client object
-opcua_client: Client = None
+opcua_client: Client | None = None
 
 # mqtt client object
 mqtt_client = None
@@ -57,7 +58,7 @@ async def lifespan(app: FastAPI):
     yield
 
     # disconnect from opcua source server
-    opcua_client.disconnect()
+    await opcua_client.disconnect()
 
     # leave async context-manager of aiomqtt -> disconnect
     await mqtt_client.__aexit__(None, None, None)
@@ -260,7 +261,9 @@ async def remove_node_from_namespace(
 
 
 @app.get("/start-service")
-async def start_service(service_rw: Annotated[ServiceReadWrite, Depends()]):
+async def start_service(
+    request: CollectingRequest, service_rw: Annotated[ServiceReadWrite, Depends()]
+):
     """Route starts the data collection process."""
 
     global service_state
@@ -273,7 +276,11 @@ async def start_service(service_rw: Annotated[ServiceReadWrite, Depends()]):
         service_state["running"] = True
         asyncio.create_task(
             helper.process_data(
-                service_config, service_state, opcua_client, mqtt_client
+                opcua_client,
+                mqtt_client,
+                service_state,
+                service_config,
+                request.object_id,
             )
         )
         return {"status": "Service started."}
@@ -294,7 +301,9 @@ async def stop_service():
 
 
 @app.put("/toggle")
-async def toggle_service(service_rw: Annotated[ServiceReadWrite, Depends()]):
+async def toggle_service(
+    request: CollectingRequest, service_rw: Annotated[ServiceReadWrite, Depends()]
+):
     """Route toggles if service is running or not running."""
 
     global service_state
@@ -309,7 +318,11 @@ async def toggle_service(service_rw: Annotated[ServiceReadWrite, Depends()]):
         service_state["running"] = True
         asyncio.create_task(
             helper.process_data(
-                service_config, service_state, opcua_client, mqtt_client
+                opcua_client,
+                mqtt_client,
+                service_state,
+                service_config,
+                request.object_id,
             )
         )
 

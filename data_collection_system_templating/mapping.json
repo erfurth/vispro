@@ -8,6 +8,8 @@
     "influx_api_token": "influxdb/api_token",
     "influx_org": "influxdb/organisation",
     "influx_init_bucket": "influxdb/initial_bucket",
+    "mongodb_user_name": "mongodb/user_name",
+    "mongodb_password": "mongodb/password",
     "mosquitto_host_address": "mosquitto/host",
     "mosquitto_port": "mosquitto/port",
     "source_name": "name",

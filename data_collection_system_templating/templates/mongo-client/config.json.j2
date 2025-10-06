@@ -1,0 +1,17 @@
+{
+    "mqtt_broker": {
+        "hostname": "mosquitto",
+        "port": 1883,
+        "keepalive": 60
+    }, 
+    "mongodb": {
+        "host": "mongodb",
+        "user_name": "{{mongodb_user_name}}",
+        "password": "{{mongodb_password}}"
+    },
+    "topics": [
+        {%- for service in data_services %}
+        "{{service.name}}-{{service.input_protocol}}/static"{% if not loop.last %},{% endif %}
+        {%- endfor %}
+    ]
+}

@@ -35,6 +35,17 @@ services:
             - influxdb_config:/etc/influxdb2
             - ./influxdb/init-buckets.sh:/docker-entrypoint-initdb.d/init-buckets.sh
         restart: always
+    mongodb:
+        image: mongo:7.0.12
+        ports:
+            - "27017:27017"
+        env_file:
+            - ./mongodb/cred.env
+        restart: always
+    mongo_client:
+        build: ./mongo-client
+        extra_hosts:
+            - "host.docker.internal:host-gateway"
     grafana:
         image: grafana/grafana-enterprise
         container_name: grafana

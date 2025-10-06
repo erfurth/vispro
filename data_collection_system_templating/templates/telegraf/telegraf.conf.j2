@@ -19,7 +19,7 @@ servers = ["{{mosquitto_host_address}}:{{mosquitto_port}}"]
 # topics to listen to 
 topics = [
   {%- for service in data_services %}
-  "{{service.name}}-{{service.input_protocol}}"{% if not loop.last or additional_topics %},{% endif %}
+  "{{service.name}}-{{service.input_protocol}}/dynamic"{% if not loop.last or additional_topics %},{% endif %}
   {%- endfor %}
   {%- for topic in additional_topics %}
   "{{topic.name}}-{{topic.input_protocol}}"{% if not loop.last %},{% endif %}
@@ -42,7 +42,7 @@ data_format = "json_v2"
       # defining the timestamp format by go reference time 
       timestamp_format = "2006-01-02T15:04:05.000000"
       # setting keys as tags
-      tags = ["metric_name","trivial_name", "unit"]
+      tags = ["object_id", "metric_name", "trivial_name", "unit"]
       # setting field to value key and define its type
       [inputs.mqtt_consumer.json_v2.object.fields]
         value = "float"
