@@ -32,7 +32,7 @@
         {
             "name": "http://www.unifiedautomation.com/DemoServer/",
             "index": 4,
-            "viewed_nodes": [
+            "observed_nodes": [
                 {
                     "metric_name": "heater_status",
                     "trivial_name": "Zustand des Heizers",

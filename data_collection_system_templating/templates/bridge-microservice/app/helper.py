@@ -15,7 +15,7 @@ def create_node_bases(service_conf: dict) -> tuple[list, list]:
 
     # iterate over each data node of each namespace
     for namespace in service_conf["namespaces"]:
-        for node_data in namespace["viewed_nodes"]:
+        for node_data in namespace["observed_nodes"]:
             # reformat the node_id to the opcua format: "ns=<namespace_num>;s=<node_id>"
             node_data["node_id"] = f"ns={namespace['index']};s={node_data['node_id']}"
 

@@ -43,7 +43,7 @@ def add_node_to_namespace(
 
     # try to get index of node searched by node_id
     index = get_node_index_by_identifier(
-        namespace["viewed_nodes"], NodeIdentifier.node_id, new_node_data.node_id
+        namespace["observed_nodes"], NodeIdentifier.node_id, new_node_data.node_id
     )
 
     # if index already exists node can not be added
@@ -51,7 +51,7 @@ def add_node_to_namespace(
         raise KeyError(f"Node with id {new_node_data.node_id} already exists.")
 
     # add node to namesapce
-    namespace["viewed_nodes"].append(new_node_data.model_dump())
+    namespace["observed_nodes"].append(new_node_data.model_dump())
 
     return service_config
 
@@ -64,7 +64,7 @@ def update_node_in_namespace(
 
     # get the index of the node to be updated
     index = get_node_index_by_identifier(
-        namespace["viewed_nodes"], NodeIdentifier.node_id, update_data.node_id
+        namespace["observed_nodes"], NodeIdentifier.node_id, update_data.node_id
     )
 
     # if no node with given ID exists raise error
@@ -72,7 +72,7 @@ def update_node_in_namespace(
         raise KeyError(f"A Node with node_id = {update_data.node_id} does not exist!")
 
     # update node with new data
-    namespace["viewed_nodes"][index] = update_data.model_dump()
+    namespace["observed_nodes"][index] = update_data.model_dump()
 
     return service_config
 
@@ -87,19 +87,19 @@ def delete_node_from_namespace(
     match delete_request.delete_by:
         # list index is given
         case NodeIdentifier.list_index:
-            namespace["viewed_nodes"].pop(delete_request.identifier)
+            namespace["observed_nodes"].pop(delete_request.identifier)
         # other indexing methods
         case _:
             # get list index by other identifier
             index = get_node_index_by_identifier(
-                namespace["viewed_nodes"],
+                namespace["observed_nodes"],
                 delete_request.delete_by,
                 delete_request.identifier,
             )
 
             # if index is found drop node
             if index is not None:
-                namespace["viewed_nodes"].pop(index)
+                namespace["observed_nodes"].pop(index)
             else:
                 raise KeyError(
                     f"No Node with {delete_request.delete_by} = {delete_request.identifier}"

@@ -173,7 +173,7 @@ async def list_nodes_of_namespace(
 
     try:
         namespace = nspace.get_namespace_by_index(service_config, space_num)
-        return namespace["viewed_nodes"]
+        return namespace["observed_nodes"]
     except IndexError as e:
         return {"message": e.__str__()}
 
