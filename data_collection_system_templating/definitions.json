@@ -326,6 +326,10 @@
         "password": "password",
         "port": 27017
     },
+    "mongo-express": {
+        "user_name": "admin",
+        "password": "password"
+    },
     "mosquitto": {
         "host": "tcp://mosquitto",
         "port": 1883

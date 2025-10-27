@@ -42,6 +42,14 @@ services:
         env_file:
             - ./mongodb/cred.env
         restart: always
+    mongo-express:
+        image: mongo-express:latest
+        ports:
+        - "8081:8081"
+        env_file:
+        - ./mongo-express/cred.env
+        depends_on:
+        - mongodb
     mongo_client:
         build: ./mongo-client
         extra_hosts:

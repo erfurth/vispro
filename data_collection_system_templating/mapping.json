@@ -10,6 +10,8 @@
     "influx_init_bucket": "influxdb/initial_bucket",
     "mongodb_user_name": "mongodb/user_name",
     "mongodb_password": "mongodb/password",
+    "mongo_express_username": "mongo-express/user_name",
+    "mongo_express_password": "mongo-express/password",
     "mosquitto_host_address": "mosquitto/host",
     "mosquitto_port": "mosquitto/port",
     "source_name": "name",
