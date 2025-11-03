@@ -47,16 +47,24 @@ data_format = "json_v2"
       [inputs.mqtt_consumer.json_v2.object.fields]
         value = "float"
 
+# extract bucket name from tag
+[[processors.regex]]
+  [[processors.regex.tags]]
+    key         = "topic"
+    pattern     = "^([^/]+)/"
+    replacement = "${1}"
+    result_key  = "source" 
+
 # set the measurement name to the metric_name
 [[processors.converter]]
   [processors.converter.tags]
     measurement = ["metric_name"]
 
 # rename "topic" to "bucket"
-[[processors.rename]]
-  [[processors.rename.replace]]
-    tag = "topic"
-    dest = "source"
+#[[processors.rename]]
+#  [[processors.rename.replace]]
+#    tag = "topic"
+#    dest = "source"
 
 # print out the data to a file for easier debugging
 [[outputs.file]]
